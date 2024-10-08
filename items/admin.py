@@ -17,4 +17,4 @@ class MealAdmin(admin.ModelAdmin):
 
 @admin.register(Vote)
 class VoteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'poll', 'meal', 'rating')
