@@ -6,7 +6,7 @@ def poll_view(request):
     # Récupérer le premier sondage
     poll = Poll.objects.first() 
     # Récupérer les propositions de repas du sondage
-    meal_proposals = poll.meal_set.all()
+    meal_proposals = poll.meals.all()
     # Renvoyer le sondage à la template
     
     # if request.method == "POST":
