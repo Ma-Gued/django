@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path
 #Import de la Home 
 from items.views.home import home
+from items.views.poll import poll_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home)
+    path('', home),
+    path('poll/', poll_view, name='poll_view'),
 ]
 
 
