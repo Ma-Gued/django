@@ -6,7 +6,6 @@ from items.models import *
 class MealAdmin(admin.ModelAdmin):
     pass 
 
-@admin.register(Poll)
 class MealAdmin(admin.ModelAdmin):
     pass
 
@@ -22,8 +21,9 @@ class PollAdmin(admin.ModelAdmin):
     # [VoteInline] est une liste d'objets de type VoteInline
     inlines = [VoteInline]
     list_display = ('question',)
+admin.site.register(Poll, PollAdmin)
+
 
 @admin.register(Vote)
 class VoteAdmin(admin.ModelAdmin):
     pass
-
