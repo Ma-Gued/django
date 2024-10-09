@@ -1,12 +1,13 @@
 <h1>{{ poll.question }}</h1>
-
-{% for meal in meal_proposals %}
-    <div>
-        <label>{{ meal.name }}</label>
-        {% comment %} <input type="radio" name="{{ meal.id }}" value="1"> 1
-        <input type="radio" name="{{ meal.id }}" value="2"> 2
-        <input type="radio" name="{{ meal.id }}" value="3"> 3 {% endcomment %}
-    </div>
-{% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {% for meal in meal_proposals %}
+        <div>
+            <label>{{ meal.name }}</label>
+            {% comment %} <input type="radio" name="{{ meal.id }}" value="1"> 1
+            <input type="radio" name="{{ meal.id }}" value="2"> 2
+            <input type="radio" name="{{ meal.id }}" value="3"> 3 {% endcomment %}
+        </div>
+    {% endfor %}
     {% comment %} <button type="submit">Voter</button> {% endcomment %}
-
+</form>

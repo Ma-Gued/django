@@ -7,16 +7,8 @@ from .logistic import Logistic
 
 class Vote(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, null=True, blank=True, on_delete=models.CASCADE)
-    # rating = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3')])
-    # game = models.ForeignKey(Game, null=True, blank=True, on_delete=models.CASCADE)
-    # logistic = models.ForeignKey(Logistic, null=True, blank=True, on_delete=models.CASCADE)
-
-    class Meta:
-        # Pour éviter que le même utilisateur vote plusieurs fois sur le même sondage
-        unique_together = (('poll', 'user', 'meal'),)  
-
+      
     # def __str__(self):
         # Cette def permet de retourner un message lorsqu'on fait un print de l'objet, uniquement pour le debug
         # return f"{self.user} voted {self.rating} for {self.meal} in {self.poll}"
