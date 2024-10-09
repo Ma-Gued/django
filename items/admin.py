@@ -1,10 +1,5 @@
 from django.contrib import admin
-from items.models.meal import Meal
-from items.models.logistic import Logistic
-from items.models.game import Game
-from items.models.item_to_bring import ItemToBring
-from items.models.poll import Poll
-from items.models.vote import Vote
+from items.models import *
 
 
 @admin.register(Meal)
@@ -15,6 +10,20 @@ class MealAdmin(admin.ModelAdmin):
 class MealAdmin(admin.ModelAdmin):
     pass
 
+# TabularInline est une classe de Django qui permet de gérer les formulaires de type tabulaire (tableau)
+class VoteInline(admin.TabularInline):
+    # model permet de définir le modèle sur lequel on va travailler
+    #model et extra sont des paramètres de la classe TabularInline
+    model = Vote
+    # extra permet de définir le nombre de formulaire à afficher
+    extra = 1  
+
+class PollAdmin(admin.ModelAdmin):
+    # [VoteInline] est une liste d'objets de type VoteInline
+    inlines = [VoteInline]
+    list_display = ('question',)
+
 @admin.register(Vote)
 class VoteAdmin(admin.ModelAdmin):
     pass
+
