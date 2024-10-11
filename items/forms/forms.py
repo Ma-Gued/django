@@ -5,6 +5,7 @@ class PollForm(forms.ModelForm):
     class Meta:
         model = Poll
         fields = ['question', 'category']
+        
 
     category = forms.ChoiceField(
         choices=[

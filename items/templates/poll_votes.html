@@ -11,10 +11,10 @@
             {% if poll.category == 'intendance' %}
                 <input type="radio" name="proposal_{{ option.id }}" value="oui"> Oui
                 <input type="radio" name="proposal_{{ option.id }}" value="non"> Non
-            {% else %}
-                <input type="radio" name="proposal_{{ option.id }}" value="1"> 1
-                <input type="radio" name="proposal_{{ option.id }}" value="2"> 2
-                <input type="radio" name="proposal_{{ option.id }}" value="3"> 3
+            {% elif poll.category == 'meal' %}
+                <input type="radio" name="proposal_{{ option.id }}" value="🤮"> 🤮
+                <input type="radio" name="proposal_{{ option.id }}" value="🤐"> 🤐
+                <input type="radio" name="proposal_{{ option.id }}" value="😋"> 😋
             {% endif %}
         </div>
     {% endfor %}
