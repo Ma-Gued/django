@@ -15,6 +15,13 @@ def poll_details(request, poll_id):
         for option in vote_options:
             response = request.POST.get(f'proposal_{option.id}')
             if response:
+                # On vérifie si un vote existe déjà pour cet utilisateur et ce poll, 
+                # et on le supprime le cas échéant
+                existing_vote = UserVote.objects.filter(user=request.user, vote_option__poll=poll).first()
+                if existing_vote:
+                    existing_vote.delete()
+
+                # On crée un nouveau vote
                 UserVote.objects.create(
                     user=request.user,
                     vote_option=option,
