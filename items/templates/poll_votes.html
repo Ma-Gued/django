@@ -2,12 +2,12 @@
 {% comment %} par exemple, "qu'est-ce qu'on mange?" {% endcomment %}
 <form method="POST">
     {% csrf_token %}
-    {% for meal in meal_proposals %}
+    {% for proposal in proposals %}
         <div>
-            <label>{{ meal.name }}</label>
-            <input type="radio" name="meal_{{ meal.id }}" value="1"> 1
-            <input type="radio" name="meal_{{ meal.id }}" value="2"> 2
-            <input type="radio" name="meal_{{ meal.id }}" value="3"> 3
+            <label>{{ proposal.name }}</label>
+            <input type="radio" name="proposal_{{ proposal.id }}" value="1"> 1
+            <input type="radio" name="proposal_{{ proposal.id }}" value="2"> 2
+            <input type="radio" name="proposal_{{ proposal.id }}" value="3"> 3
         </div>
     {% endfor %}
     <button type="submit">Voter</button>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from items.models import Meal, Poll, VoteOption, Intendance
+from items.models import Meal, Poll, VoteOption, Intendance, Game, Logistic
 from items.forms.forms import PollForm
 from django import forms
 from .administration.poll_admin import PollAdmin
@@ -17,3 +17,4 @@ admin.site.register(Poll, PollAdmin)
 admin.site.register(Meal, MealAdmin)
 admin.site.register(VoteOption, VoteAdmin)
 admin.site.register(Intendance, IntendanceAdmin)
+admin.site.register(Game)

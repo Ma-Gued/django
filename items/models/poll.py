@@ -3,7 +3,7 @@ from django.db import models
 class Poll(models.Model):
     QUESTION_CATEGORIES = [
         ('meal', 'Meal'),
-        ('intendancy', 'Intendance'),
+        ('intendance', 'Intendance'),
         ('game', 'Game'),
         ('logistic', 'Logistic'),
     ]
@@ -13,3 +13,5 @@ class Poll(models.Model):
 
     def __str__(self):
         return self.question
+
+        return self.category

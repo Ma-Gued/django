@@ -9,9 +9,19 @@ def poll_details(request, poll_id):
     # On récupère les propositions de repas, d'intendance, de jeu et de logistique
     # pour les afficher dans le formulaire de vote
     meal_proposals = Meal.objects.all()
-    intendance_proposals = Intendance.objects.all()
+    intendance_proposals = Intendance.objects.all() 
     game_proposals = Game.objects.all()
     logistic_proposals = Logistic.objects.all()
-       
     
-    return render(request, 'poll_votes.html', {'poll': poll, 'meal_proposals': meal_proposals})
+    proposals = {
+        'meal': meal_proposals,
+        'intendance': intendance_proposals,
+        'game': game_proposals,
+        'logistic': logistic_proposals
+    }
+    
+    #.get() permet de récupérer la valeur d'une clé dans un dictionnaire
+    #poll.category est la clé, et [] est la valeur par défaut si la clé n'existe pas
+    #poll.category sera remplacé par meal, intendance, game ou logistic
+    current_proposals = proposals.get(poll.category, [])
+    return render(request, 'poll_votes.html', {'poll': poll, 'proposals': current_proposals})
