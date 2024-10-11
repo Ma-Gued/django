@@ -1,3 +1,7 @@
+{% comment %} Bouton "Home" {% endcomment %}
+<a href="{% url 'home' %}">◀ Retour à l'accueil </a>
+<br>
+{% comment %} Titre du Poll {% endcomment %}
 <h1>{{ poll.question }}</h1>
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}

@@ -8,7 +8,7 @@ from items.views.poll_details_view import poll_details
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name='home'),
     path('polls/<int:poll_id>/votes/', poll_votes, name='poll_votes'),
     path('polls/<int:poll_id>/', poll_details, name='poll_details'),     
     ]
