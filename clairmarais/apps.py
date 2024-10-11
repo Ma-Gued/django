@@ -1,0 +1,2 @@
+from django.apps import AppConfig
+from clairmarais.app_configuration_files.clairmarais_config import ClairmaraisConfig

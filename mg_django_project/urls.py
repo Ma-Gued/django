@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path
-from items.views import home_view
+from clairmarais.views import home_view
 
 home = home_view.home
-from items.views.poll_votes_view import poll_votes
-from items.views.poll_details_view import poll_details
+from clairmarais.views.poll_votes_view import poll_votes
+from clairmarais.views.poll_details_view import poll_details
 
 urlpatterns = [
     path('admin/', admin.site.urls),
