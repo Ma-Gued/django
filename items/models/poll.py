@@ -1,10 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Poll(models.Model):
-    question = models.CharField(max_length=255)
-    # votes = models.ManyToManyField('Vote', through='UserVote')  # Association avec les votes
+    QUESTION_CATEGORIES = [
+        ('meal', 'Meal'),
+        ('intendancy', 'Intendance'),
+        ('game', 'Game'),
+        ('logistic', 'Logistic'),
+    ]
 
+    question = models.CharField(max_length=255)
+    category = models.CharField(max_length=20, choices=QUESTION_CATEGORIES, default='meal')
 
     def __str__(self):
         return self.question

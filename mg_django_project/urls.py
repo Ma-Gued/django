@@ -16,14 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-#Import de la Home 
 from items.views.home import home
-from items.views.poll import poll_view
+from items.views.polls import poll_votes, poll_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('poll/', poll_view, name='poll_view'),
-]
+    #Explication du path ci-dessous:
+    # 1. On commence par 'polls/' pour indiquer que l'URL commence par 'polls/'.
+    # 2. Ensuite, on utilise <int:poll_id> pour indiquer que l'URL doit contenir un entier (l'identifiant du sondage).
+    # 3. Enfin, on termine par 'votes/' pour indiquer que l'URL se termine par 'votes/'.
+    path('polls/<int:poll_id>/votes/', poll_votes, name='poll_votes'),
+    path('polls/<int:poll_id>/', poll_detail, name='poll_detail'),     
+    ]
 
 
