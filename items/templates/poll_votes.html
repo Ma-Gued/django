@@ -1,18 +1,17 @@
 <h1>{{ poll.question }}</h1>
-{% comment %} par exemple, "qu'est-ce qu'on mange?" {% endcomment %}
 <form method="POST">
     {% csrf_token %}
-    {% for proposal in proposals %}
+    {% for option in vote_options %}
         <div>
-            <label>{{ proposal.name }}</label>
+            <label>{{ option }}</label>
             {% if poll.category == 'intendance' %}
-                <input type="radio" name="proposal_{{ proposal.id }}" value="oui"> Oui
-                <input type="radio" name="proposal_{{ proposal.id }}" value="non"> Non
+                <input type="radio" name="proposal_{{ option.id }}" value="oui"> Oui
+                <input type="radio" name="proposal_{{ option.id }}" value="non"> Non
             {% else %}
-                <input type="radio" name="proposal_{{ proposal.id }}" value="1"> 1
-                <input type="radio" name="proposal_{{ proposal.id }}" value="2"> 2
-                <input type="radio" name="proposal_{{ proposal.id }}" value="3"> 3
-            {% endif %}        
+                <input type="radio" name="proposal_{{ option.id }}" value="1"> 1
+                <input type="radio" name="proposal_{{ option.id }}" value="2"> 2
+                <input type="radio" name="proposal_{{ option.id }}" value="3"> 3
+            {% endif %}
         </div>
     {% endfor %}
     <button type="submit">Voter</button>
