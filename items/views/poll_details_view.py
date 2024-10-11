@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from items.models import Poll, Vote, Meal, Intendance, Game, Logistic
+from items.models import Poll, VoteOption, Meal, Intendance, Game, Logistic
 
 def poll_details(request, poll_id):
     # get_object_or_404 est une fonction qui permet de récupérer un objet en fonction de son ID 

@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 
-
-class Vote(models.Model):
+class VoteOption(models.Model):
     RESPONSE_CHOICES = [
         ('oui', 'Oui'),
         ('non', 'Non'),

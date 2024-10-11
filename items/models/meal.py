@@ -11,4 +11,4 @@ class Meal(ItemToBring):
 #Dans ce projet, les utilisateurs vont pouvoir voter pour les repas qu'ils préfèrent, et les repas les plus populaires seront préparés.
 #Des propositions de repas seront créées via l'admin de Django 
 #Pour cela, nous allons ajouter un attribut votes à la classe Meal, qui contiendra le nombre de votes pour chaque repas.
-#Une classe "vote" 
+#Une classe "VoteOption" 

@@ -1,5 +1,5 @@
 from django import forms
-from items.models import Poll, Vote, Meal, Intendance, Game
+from items.models import Poll, VoteOption, Meal, Intendance, Game
 
 class PollForm(forms.ModelForm):
     class Meta:

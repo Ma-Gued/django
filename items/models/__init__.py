@@ -5,6 +5,6 @@ from .logistic import Logistic
 from .game import Game
 from .item_to_bring import ItemToBring
 from .poll import Poll
-from .vote import Vote
+from .vote_option import VoteOption
 from .user_vote import UserVote
 from .intendance import Intendance

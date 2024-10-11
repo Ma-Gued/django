@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from items.models import Poll, Vote, Meal, Intendance, Game
+from items.models import Poll, VoteOption, Meal, Intendance, Game
 
 # Cette méthode permet de gérer les votes (choix) pour un sondage donné
 def poll_votes(request, poll_id):
     poll = Poll.objects.get(id=poll_id)
-    votes = Vote.objects.filter(poll=poll)
+    votes = VoteOption.objects.filter(poll=poll)
 
     if request.method == 'POST':
         # Les votes (choix) sont stockés dans un champ de formulaire nommé response_<id>
