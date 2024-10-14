@@ -15,7 +15,17 @@ from pathlib import Path
 import os
 import dj_database_url
 import django_heroku
-from decouple import config
+from dj_database_url import config as db_config
+# import de django-environ
+import environ
+
+# Initialisation d'environ 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+# Liaison du fichier .env
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,12 +35,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')
+SECRET_KEY = env('SECRET_KEY', default='your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['clairmarais.herokuapp.com']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['clairmarais.herokuapp.com'])
 
 # Application definition
 
@@ -82,9 +92,7 @@ WSGI_APPLICATION = 'mg_django_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-            default=config('DATABASE_URL')
-        )
+    'default': env.db('DATABASE_URL')
 }
 
 
@@ -126,7 +134,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
