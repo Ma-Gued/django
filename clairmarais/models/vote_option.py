@@ -1,6 +1,9 @@
 from django.db import models
 from .poll import Poll
 from .meal import Meal
+from .intendance import Intendance
+from .game import Game
+from .logistic import Logistic
 
 class VoteOption(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
@@ -27,14 +30,14 @@ class VoteOption(models.Model):
             for meal in meals:
                 VoteOption.objects.create(poll=poll, meal=meal)
         elif poll.category == 'intendance':
-            intendances = 'Intendance'.objects.all()
+            intendances = Intendance.objects.all()
             for intendance in intendances:
                 VoteOption.objects.create(poll=poll, intendance=intendance)
         elif poll.category == 'game':
-            games = 'Game'.objects.all()
+            games = Game.objects.all()
             for game in games:
                 VoteOption.objects.create(poll=poll, game=game)
         elif poll.category == 'logistic':
-            logistics = 'Logistic'.objects.all()
+            logistics = Logistic.objects.all()
             for logistic in logistics:
                 VoteOption.objects.create(poll=poll, logistic=logistic)
