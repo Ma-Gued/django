@@ -1,25 +1,45 @@
+{% load custom_filters %}
+
 {% comment %} Bouton "Home" {% endcomment %}
 <a href="{% url 'home' %}">◀ Retour à l'accueil </a>
 <br>
-{% comment %} Titre du Poll {% endcomment %}
+
+{% comment %} Titre du sondage {% endcomment %}
 <h1>{{ poll.question }}</h1>
+
+{% if alert %}
+    <div class="alert alert-success">{{ alert }}</div>
+{% endif %}
+
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}
     {% for option in vote_options %}
         <div>
             <label>{{ option }}</label>
             {% if poll.category == 'intendance' %}
-                <input type="radio" name="proposal_{{ option.id }}" value="oui"> Oui
-                <input type="radio" name="proposal_{{ option.id }}" value="non"> Non
+                <input type="radio" name="proposal_{{ option.id }}" value="oui" id="oui_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == 'oui' %}checked{% endif %}>
+                <label for="oui_{{ option.id }}">Oui</label>
+                <input type="radio" name="proposal_{{ option.id }}" value="non" id="non_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == 'non' %}checked{% endif %}>
+                <label for="non_{{ option.id }}">Non</label>
             {% elif poll.category == 'meal' %}
-                <input type="radio" name="proposal_{{ option.id }}" value="🤮"> 🤮
-                <input type="radio" name="proposal_{{ option.id }}" value="🤐"> 🤐
-                <input type="radio" name="proposal_{{ option.id }}" value="😋"> 😋
+                <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
+                <label for="dislike_{{ option.id }}">🤮</label>
+                <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
+                <label for="neutral_{{ option.id }}">🤐</label>
+                <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
+                <label for="like_{{ option.id }}">😋</label>
             {% endif %}
         </div>
     {% endfor %}
     <button type="submit">Voter</button>
 </form>
 {% if alert %}
-    <p>{{ alert }}</p>
+<div class="alert">
+    {{ alert }}
+</div>
 {% endif %}
