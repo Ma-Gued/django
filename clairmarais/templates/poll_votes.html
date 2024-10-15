@@ -7,10 +7,6 @@
 {% comment %} Titre du sondage {% endcomment %}
 <h1>{{ poll.question }}</h1>
 
-{% if alert %}
-    <div class="alert alert-success">{{ alert }}</div>
-{% endif %}
-
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}
     {% for option in vote_options %}
