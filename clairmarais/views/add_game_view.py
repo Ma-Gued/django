@@ -7,7 +7,6 @@ def add_game(request):
     if request.method == 'POST':
         game_name = request.POST.get('game_name')
         poll_id = request.POST.get('poll_id')
-        print("---------------------------", poll_id)
         user_id = request.session.get('user_id')
         poll = get_object_or_404(Poll, id=poll_id)
         user = User.objects.get(id=user_id)

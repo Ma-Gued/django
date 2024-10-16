@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from clairmarais.models import Poll, VoteOption, UserVote, User
+from clairmarais.models import Poll, VoteOption, UserVote, Game
+from django.contrib.auth.models import User
 from django.db import IntegrityError
 
 def poll_details(request, poll_id):
     poll = get_object_or_404(Poll, id=poll_id)
     vote_options = VoteOption.objects.filter(poll=poll)
+    games = Game.objects.filter(user=request.user)
     alert = None
 
     # Récupérer l'utilisateur connecté à partir de la session
@@ -45,5 +47,6 @@ def poll_details(request, poll_id):
         'poll': poll,
         'vote_options': vote_options,
         'user_votes_dict': user_votes_dict,
+        'games': games,
         'alert': alert
     })

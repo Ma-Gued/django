@@ -4,34 +4,17 @@
 <!-- Titre du sondage--> 
 <h1>{{ poll.question }}</h1>
 
-<!-- Game -->
+<!-- Si la catégorie du Poll est Game -->
 {% if poll.category == 'game' %}
     {% include 'poll_votes/add_game.html' %}
     {% include 'poll_votes/show_and_delete_game.html' %}    
 {% endif %}
 
-<!-- Intendance & Meal -->
-
-<form method="post" action="{% url 'poll_details' poll.id %}">
-
-    {% csrf_token %}
-    {% for option in vote_options %}
-        <div>
-            <label>{{ option }}</label>
-            {% if poll.category == 'intendance' %}
-                {% include 'poll_votes/intendance.html' %}
-
-            {% elif poll.category == 'meal' %}
-                {% include 'poll_votes/meal.html' %}
-
-            {% endif %}
-        </div>
-    {% endfor %}
-    <button type="submit">Voter</button>
-</form>
+<!-- Si la catégorie du Poll Intendance ou Meal -->
+{% include 'poll_votes/intendance_and_meal_form.html' %}
 
 {% if alert %}
-<div class="alert">
-    {{ alert }}
-</div>
+    <div class="alert">
+        {{ alert }}
+    </div>
 {% endif %}

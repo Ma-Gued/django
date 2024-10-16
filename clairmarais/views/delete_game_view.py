@@ -8,7 +8,6 @@ def delete_game(request, game_id):
     if request.method == 'POST':
         game = get_object_or_404(Game, id=game_id)
         poll_id = request.GET.get('poll_id')
-        print("---------------------------", poll_id)
         if game.user == request.user:
             game.delete()
             return redirect('poll_votes', poll_id=poll_id)
