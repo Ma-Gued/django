@@ -1,3 +1,5 @@
+{% load custom_chars %}
+
 <form method="post" action="{% url 'add_game' %}">
     {% csrf_token %}
     <input type="hidden" name="poll_id" value="{{ poll.id }}">
@@ -5,3 +7,9 @@
     <input type="text" id="game_name" name="game_name">
     <button type="submit">Ajouter</button>
 </form>
+
+<ul>
+    {% for game in games %}
+        <li>{{ game.user.username }} ramène {{ game.name|add_random_char:"💃🤞🙏🎃💋🏓🃏🏆⌛🍟🍷🍺🍹🧀🌳" }} </li>
+    {% endfor %}
+</ul>

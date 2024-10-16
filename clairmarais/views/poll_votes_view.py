@@ -17,4 +17,5 @@ def poll_votes(request, poll_id):
                 vote.save()
         return redirect('poll_success')
 
+    # Rendu de la page de détails du sondage avec les options de vote
     return render(request, 'poll_votes.html', {'poll': poll, 'votes': voteoptions, 'games': games})

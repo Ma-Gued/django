@@ -1,16 +1,15 @@
-{% comment %} Bouton "Home" {% endcomment %}
 <a href="{% url 'home' %}">◀ Retour à l'accueil </a>
 <br>
 
-{% comment %} Titre du sondage {% endcomment %}
+<!-- Titre du sondage--> 
 <h1>{{ poll.question }}</h1>
-<h1>{{ poll.category }}</h1>
 
+<!-- Game -->
 {% if poll.category == 'game' %}
     {% include 'poll_votes/add_game.html' %}
 {% endif %}
 
-<!-- poll_votes.html -->
+<!-- Intendance & Meal -->
 
 <form method="post" action="{% url 'poll_details' poll.id %}">
 
@@ -24,14 +23,12 @@
             {% elif poll.category == 'meal' %}
                 {% include 'poll_votes/meal.html' %}
 
-            {% else %}
-                <p>Catégorie inconnue</p>
-
             {% endif %}
         </div>
     {% endfor %}
     <button type="submit">Voter</button>
 </form>
+
 {% if alert %}
 <div class="alert">
     {{ alert }}
