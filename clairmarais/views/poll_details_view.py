@@ -19,6 +19,7 @@ def poll_details(request, poll_id):
     user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
     user_votes_dict = {vote.vote_option.id: vote.response for vote in user_votes}
 
+    # Si le formulaire est soumis, enregistrer les réponses
     if request.method == 'POST':
         for option in vote_options:
             response = request.POST.get(f'proposal_{option.id}')

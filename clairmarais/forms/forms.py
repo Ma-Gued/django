@@ -10,7 +10,7 @@ class PollForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=[
             ('meal', 'Meal'),
-            ('intendence', 'Intendance'),
+            ('intendance', 'Intendance'),
             ('game', 'Game'),
             ('logistic', 'Logistic'),
         ],
