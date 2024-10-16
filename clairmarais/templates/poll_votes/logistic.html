@@ -1,0 +1,12 @@
+<ul>
+    {% for option in vote_options %}
+        <li>
+            {{ option }}
+            <form method="post" action="{% url 'logistic' poll.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="vote_option_id" value="{{ option.id }}">
+                <button type="submit">Je ramène</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>

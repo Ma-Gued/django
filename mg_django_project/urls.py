@@ -7,6 +7,7 @@ from clairmarais.views.poll_details_view import poll_details
 from clairmarais.views.login_view import login, user_list
 from clairmarais.views.add_game_view import add_game
 from clairmarais.views.delete_game_view import delete_game
+from clairmarais.views.logistic_view import logistic
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,5 +18,6 @@ urlpatterns = [
     path('polls/<int:poll_id>/', poll_details, name='poll_details'),    
     path('add_game/', add_game, name='add_game'), 
     path('delete_game/<int:game_id>/', delete_game, name='delete_game'),
+    path('polls/<int:poll_id>/logistic/', logistic, name='logistic'),
     ]
 

@@ -11,7 +11,15 @@
 {% endif %}
 
 <!-- Si la catégorie du Poll Intendance ou Meal -->
-{% include 'poll_votes/intendance_and_meal_form.html' %}
+{% if poll.category == 'meal' %}
+    {% include 'poll_votes/intendance_and_meal_form.html' %}
+{% endif %}
+
+<!-- Si la catégorie du Poll est Logistic -->
+{% if poll.category == 'logistic' %}
+    {% include 'poll_votes/logistic.html' %}
+{% endif %}
+
 
 {% if alert %}
     <div class="alert">
