@@ -5,6 +5,11 @@ from django.db import IntegrityError
 
 def poll_details(request, poll_id):
     poll = get_object_or_404(Poll, id=poll_id)
+    
+    # Rediriger vers la vue logistic si la catégorie est logistic
+    if poll.category == 'logistic':
+        return redirect('logistic', poll_id=poll.id)
+
     vote_options = VoteOption.objects.filter(poll=poll)
     games = Game.objects.filter(user=request.user)
     alert = None
@@ -20,25 +25,46 @@ def poll_details(request, poll_id):
     # Récupérer les votes existants de l'utilisateur pour ce sondage
     user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
     user_votes_dict = {vote.vote_option.id: vote.response for vote in user_votes}
+    print("--------user_votes---------------")
+    print(user_votes)
+    # ! CETTE CONDITION SERT ELLE A QUELQUE CHOSE ?
+    # # Si le formulaire est soumis, enregistrer les réponses
+    # if request.method == 'POST':
+    #     for option in vote_options:
+    #         response = request.POST.get(f'proposal_{option.id}')
+    #         if response:
+    #             try:
+    #                 # Vérifier si un vote existe déjà pour cet utilisateur et cette option de vote
+    #                 user_vote, created = UserVote.objects.get_or_create(
+    #                     user=user,
+    #                     vote_option=option,
+    #                     defaults={'response': response}
+    #                 )
+    #                 if not created:
+    #                     # Si le vote existe déjà, mettre à jour la réponse
+    #                     user_vote.response = response
+    #                     user_vote.save()
+    #             except IntegrityError:
+    #                 alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
 
-    # Si le formulaire est soumis, enregistrer les réponses
-    if request.method == 'POST':
-        for option in vote_options:
-            response = request.POST.get(f'proposal_{option.id}')
-            if response:
-                try:
-                    # Vérifier si un vote existe déjà pour cet utilisateur et cette option de vote
-                    user_vote, created = UserVote.objects.get_or_create(
-                        user=user,
-                        vote_option=option,
-                        defaults={'response': response}
-                    )
-                    if not created:
-                        # Si le vote existe déjà, mettre à jour la réponse
-                        user_vote.response = response
-                        user_vote.save()
-                except IntegrityError:
-                    alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
+    #     alert = 'Ton vote a bien été pris en compte 👌'
+
+    for option in vote_options:
+        response = request.POST.get(f'proposal_{option.id}')
+        if response:
+            try:
+                # Vérifier si un vote existe déjà pour cet utilisateur et cette option de vote
+                user_vote, created = UserVote.objects.get_or_create(
+                    user=user,
+                    vote_option=option,
+                    defaults={'response': response}
+                )
+                if not created:
+                    # Si le vote existe déjà, mettre à jour la réponse
+                    user_vote.response = response
+                    user_vote.save()
+            except IntegrityError:
+                alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
 
         alert = 'Ton vote a bien été pris en compte 👌'
 

@@ -18,6 +18,6 @@ urlpatterns = [
     path('polls/<int:poll_id>/', poll_details, name='poll_details'),    
     path('add_game/', add_game, name='add_game'), 
     path('delete_game/<int:game_id>/', delete_game, name='delete_game'),
-    path('polls/<int:poll_id>/logistic/', logistic, name='logistic'),
+    path('poll/<int:poll_id>/logistic/', logistic, name='logistic'),
     ]
 
