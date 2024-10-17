@@ -1,6 +1,5 @@
 {% load custom_filters %}
-
-<body>
+{% load static %}
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}
 
@@ -23,4 +22,3 @@
     <br>
     <button type="submit">Voter</button>
 </form>
-</body>
