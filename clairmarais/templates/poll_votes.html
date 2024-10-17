@@ -1,41 +1,36 @@
-{% load custom_filters %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-{% comment %} Bouton "Home" {% endcomment %}
 <a href="{% url 'home' %}">◀ Retour à l'accueil </a>
 <br>
 
-{% comment %} Titre du sondage {% endcomment %}
+<!-- Titre du sondage--> 
 <h1>{{ poll.question }}</h1>
 
-<form method="post" action="{% url 'poll_details' poll.id %}">
-    {% csrf_token %}
-    {% for option in vote_options %}
-        <div>
-            <label>{{ option }}</label>
-            {% if poll.category == 'intendance' %}
-                <input type="radio" name="proposal_{{ option.id }}" value="oui" id="oui_{{ option.id }}"
-                    {% if user_votes_dict|get_item:option.id == 'oui' %}checked{% endif %}>
-                <label for="oui_{{ option.id }}">Oui</label>
-                <input type="radio" name="proposal_{{ option.id }}" value="non" id="non_{{ option.id }}"
-                    {% if user_votes_dict|get_item:option.id == 'non' %}checked{% endif %}>
-                <label for="non_{{ option.id }}">Non</label>
-            {% elif poll.category == 'meal' %}
-                <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
-                    {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
-                <label for="dislike_{{ option.id }}">🤮</label>
-                <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
-                    {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
-                <label for="neutral_{{ option.id }}">🤐</label>
-                <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
-                    {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
-                <label for="like_{{ option.id }}">😋</label>
-            {% endif %}
-        </div>
-    {% endfor %}
-    <button type="submit">Voter</button>
-</form>
+<!-- Si la catégorie du Poll est Game -->
+{% if poll.category == 'game' %}
+    {% include 'poll_votes/add_game.html' %}
+    {% include 'poll_votes/show_and_delete_game.html' %}    
+{% endif %}
+
+<!-- Si la catégorie du Poll est Intendance -->
+{% if poll.category == 'intendance' %}
+    {% include 'poll_votes/intendance.html' %}
+{% endif %}
+
+<!-- Si la catégorie du Poll est Meal -->
+{% if poll.category == 'meal' %}
+    {% include 'poll_votes/meal.html' %}
+{% endif %}
+
+<!-- Si la catégorie du Poll est Logistic -->
+{% if poll.category == 'logistic' %}
+    {% include 'poll_votes/logistic.html' %}
+{% endif %}
+
+
 {% if alert %}
-<div class="alert">
-    {{ alert }}
-</div>
+    <div class="alert">
+        {{ alert }}
+    </div>
 {% endif %}

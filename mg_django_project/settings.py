@@ -80,9 +80,24 @@ WSGI_APPLICATION = 'mg_django_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
+#Configuration de la base de données pour Localhost
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# Configuration de la base de données pour Heroku
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -117,11 +132,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Répertoire où collecter les fichiers statiques
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# URL pour accéder aux fichiers statiques
 STATIC_URL = '/static/'
+
+# Répertoires supplémentaires pour rechercher les fichiers statiques
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

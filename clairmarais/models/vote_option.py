@@ -23,6 +23,7 @@ class VoteOption(models.Model):
             return self.logistic.name
         return "Vote Option"
     
+    # Création des options de vote pour un sondage
     @staticmethod
     def populate_vote_options(poll):
         if poll.category == 'meal':
