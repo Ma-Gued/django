@@ -5,6 +5,7 @@ from django.db import IntegrityError
 
 def poll_details(request, poll_id):
     poll = get_object_or_404(Poll, id=poll_id)
+    games = Game.objects.all()
 
     # Récupérer les options de vote pour ce sondage
     if poll.category == 'intendance':
@@ -12,7 +13,6 @@ def poll_details(request, poll_id):
     elif poll.category == 'meal':
         vote_options = VoteOption.objects.filter(poll=poll, meal__isnull=False)
     elif poll.category == 'game':
-        games = Game.objects.filter(user=request.user)
         vote_options = VoteOption.objects.filter(poll=poll, game__isnull=False)
     elif poll.category == 'logistic':
         return redirect('logistic', poll_id=poll.id)        
@@ -57,6 +57,6 @@ def poll_details(request, poll_id):
         'poll': poll,
         'vote_options': vote_options,
         'user_votes_dict': user_votes_dict,
-        
-        'alert': alert
+        'alert': alert,
+        'games': games
     })

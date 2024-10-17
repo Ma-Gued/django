@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from clairmarais.models import Game, Poll 
 from django.contrib.auth.models import User
+from django.db import IntegrityError
+from clairmarais.models import Game, Poll
+
 
 
 def add_game(request):
