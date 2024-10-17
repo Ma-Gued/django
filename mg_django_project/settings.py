@@ -132,11 +132,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Répertoire où collecter les fichiers statiques
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# URL pour accéder aux fichiers statiques
 STATIC_URL = '/static/'
+
+# Répertoires supplémentaires pour rechercher les fichiers statiques
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
