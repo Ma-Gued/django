@@ -1,5 +1,7 @@
 {% load custom_filters %}
 
+<a href="{% url 'home' %}">◀ Retour à l'accueil </a>
+
 <h2>Les trucs utiles à ramener 👍🛌🔌</h2>
 <form method="post" action="{% url 'logistic' poll.id %}">
     {% csrf_token %}
