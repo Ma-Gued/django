@@ -1,11 +1,19 @@
 {% load custom_filters %}
 
-<input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
-    {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
-<label for="dislike_{{ option.id }}">🤮</label>
-<input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
-    {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
-<label for="neutral_{{ option.id }}">🤐</label>
-<input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
-    {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
-<label for="like_{{ option.id }}">😋</label>
+<form method="post" action="{% url 'poll_details' poll.id %}">
+    {% csrf_token %}
+
+    {% for option in vote_options %}
+        <h5>{{ option }}</h5>
+        <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
+            {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
+        <label for="dislike_{{ option.id }}">🤮</label>
+        <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
+            {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
+        <label for="neutral_{{ option.id }}">🤐</label>
+        <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
+            {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
+        <label for="like_{{ option.id }}">😋</label>
+    {% endfor %}
+    <button type="submit">Voter</button>
+</form>

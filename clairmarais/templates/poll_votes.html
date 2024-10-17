@@ -10,9 +10,14 @@
     {% include 'poll_votes/show_and_delete_game.html' %}    
 {% endif %}
 
-<!-- Si la catégorie du Poll Intendance ou Meal -->
+<!-- Si la catégorie du Poll est Intendance -->
+{% if poll.category == 'intendance' %}
+    {% include 'poll_votes/intendance.html' %}
+{% endif %}
+
+<!-- Si la catégorie du Poll est Meal -->
 {% if poll.category == 'meal' %}
-    {% include 'poll_votes/intendance_and_meal_form.html' %}
+    {% include 'poll_votes/meal.html' %}
 {% endif %}
 
 <!-- Si la catégorie du Poll est Logistic -->
