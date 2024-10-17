@@ -1,14 +1,15 @@
-    <h1>Coucou petit chaton {{username}} !</h1>
-    <p>(C'est toi mon chaton préféré 😻)</p>
+{% load static %}
 
-    <br>
-<h2>MidWeek à Clairmarais</h2>
+<h1>Coucou petit chaton {{username}} !</h1>
+<p>(C'est toi mon chaton préféré 😻)</p>
+
+<h2>Midweek à Clairmarais</h2>
 <h3>Du Vendredi 1er novembre au Mardi 5 novembre 2024</h3>
+<p><a href="{% static 'pdfs\gitedelaforet.pdf' %}" download><h3>Gîte de la Forêt (pdf)</h3></a></p>    
+<a href="https://www.google.fr/maps/place/12+Rue+du+Grand+Nieppe,+62500+Clairmarais/@50.7722557,2.3567329,17z/data=!4m15!1m8!3m7!1s0x47dcfbc8d4313b85:0x186c5dacaab74a5d!2s12+Rue+du+Grand+Nieppe,+62500+Clairmarais!3b1!8m2!3d50.7722523!4d2.3593078!16s%2Fg%2F11csckbl76!3m5!1s0x47dcfbc8d4313b85:0x186c5dacaab74a5d!8m2!3d50.7722523!4d2.3593078!16s%2Fg%2F11csckbl76?entry=ttu&g_ep=EgoyMDI0MTAwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+    <p>🚗 12, Rue du Grand Nieppe, 62500 Clairmarais</p> 
+</a>
 <br>
-    <a href="https://www.google.fr/maps/place/12+Rue+du+Grand+Nieppe,+62500+Clairmarais/@50.7722557,2.3567329,17z/data=!4m15!1m8!3m7!1s0x47dcfbc8d4313b85:0x186c5dacaab74a5d!2s12+Rue+du+Grand+Nieppe,+62500+Clairmarais!3b1!8m2!3d50.7722523!4d2.3593078!16s%2Fg%2F11csckbl76!3m5!1s0x47dcfbc8d4313b85:0x186c5dacaab74a5d!8m2!3d50.7722523!4d2.3593078!16s%2Fg%2F11csckbl76?entry=ttu&g_ep=EgoyMDI0MTAwOS4wIKXMDSoASAFQAw%3D%3D" 
-        target="_blank">
-        <h3>Gîte de la Forêt</h3>
-        <p>12, Rue du Grand Nieppe, 62500 Clairmarais</p>
-    </a>
-{% comment %} Ajout de la description du gîte : {% endcomment %}
-<br>
+
+
+

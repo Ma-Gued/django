@@ -8,6 +8,8 @@ from clairmarais.views.login_view import login, user_list
 from clairmarais.views.add_game_view import add_game
 from clairmarais.views.delete_game_view import delete_game
 from clairmarais.views.logistic_view import logistic
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
