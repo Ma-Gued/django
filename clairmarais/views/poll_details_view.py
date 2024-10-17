@@ -17,12 +17,6 @@ def poll_details(request, poll_id):
         return redirect('logistic', poll_id=poll.id)        
     else:
         vote_options = VoteOption.objects.filter(poll=poll)
-    print("--------vote_options---------------")
-    print(vote_options)
-    for vote in vote_options:
-        print(vote)
-    
-
 
     games = Game.objects.filter(user=request.user)
     alert = None

@@ -1,10 +1,12 @@
 {% load custom_filters %}
 
+<body>
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}
 
     {% for option in vote_options %}
         <div>
+            <li>
             {{ option }}
             <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
                 {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
@@ -15,8 +17,10 @@
             <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
                 {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
             <label for="like_{{ option.id }}">😋</label>
+            </li>
         </div>
     {% endfor %}
     <br>
     <button type="submit">Voter</button>
 </form>
+</body>
