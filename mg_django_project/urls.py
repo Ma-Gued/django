@@ -7,30 +7,27 @@ from clairmarais.views import home_view
 from clairmarais.views.poll_votes_view import poll_votes
 from clairmarais.views.poll_details_view import poll_details
 from clairmarais.views.login_view import login
-from clairmarais.views.logout_view import logout
 from clairmarais.views.add_game_view import add_game
 from clairmarais.views.delete_game_view import delete_game
 from clairmarais.views.logistic_view import logistic
 from clairmarais.views.custom_login_view import CustomLoginView
+from clairmarais.views.custom_logout_view import CustomLogoutView
 from clairmarais.views.login_view import user_login, user_list
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CustomLoginView.as_view(), name='login'),
-
-    path('logout/', logout, name='logout'),
-#     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-
+    path('login/<int:user_id>/', user_login, name='user_login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    
     path('home/', home_view.home, name='home'),
     path('polls/<int:poll_id>/votes/', poll_votes, name='poll_votes'),
     path('polls/<int:poll_id>/', poll_details, name='poll_details'),
     path('add_game/', add_game, name='add_game'), 
     path('delete_game/<int:game_id>/', delete_game, name='delete_game'),
     path('poll/<int:poll_id>/logistic/', logistic, name='logistic'),
-        
-    path('', user_list, name='user_list'),
-    path('login/<int:user_id>/', user_login, name='user_login'),
+            
 
     ]
 

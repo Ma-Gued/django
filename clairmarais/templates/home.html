@@ -13,7 +13,10 @@
     {% include 'home/polls_list.html' %} 
     <p style="font-size: 0.8em">(PS: C'est toi mon chaton préféré 😼)</p>
 
-    <a href="{% url 'logout' %}" class="logout-btn">Déconnexion</a>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Déconnexion</button>
+    </form>
 </body>
 </html>
 

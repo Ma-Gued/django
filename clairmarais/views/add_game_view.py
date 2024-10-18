@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from clairmarais.models import Game, Poll
 
-
-
 def add_game(request):
     if request.method == 'POST':
         game_name = request.POST.get('game_name')
