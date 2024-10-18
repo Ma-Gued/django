@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from clairmarais.models import Poll, VoteOption, Meal, Intendance, Game
+from django.contrib.auth.decorators import login_required
 
+@login_required
 # Cette méthode permet de gérer les options (choix) pour un sondage donné
 def poll_votes(request, poll_id):
     poll = Poll.objects.get(id=poll_id)

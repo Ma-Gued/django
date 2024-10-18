@@ -4,10 +4,6 @@
     {% for game in games %}
         <li>
             {{ game.user.username }} ramène <span>{{ game.name|get_random_char:"💃🤞🙏🎃💋🏓🃏🏆⌛🍟🍷🍺🍹🧀🌳" }}</span>
-            <p>game.user: {{ game.user.username }}</p>
-            <p>request.user: {{ request.user.username }}</p>
-            <p>current_user: {{ current_user.username }}</p>
-
 
             {% if game.user.username == user.username %}
                 <form method="post" action="{% url 'delete_game' game.id %}?poll_id={{ poll.id }}" style="display:inline;">

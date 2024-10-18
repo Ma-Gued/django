@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from clairmarais.models import Poll
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     polls = Poll.objects.all()
     users = User.objects.all()

@@ -9,8 +9,8 @@
 
 <!-- Si la catégorie du Poll est Game -->
 {% if poll.category == 'game' %}
-    {% include 'poll_votes/add_game.html' %}
     {% include 'poll_votes/show_and_delete_game.html' %}    
+    {% include 'poll_votes/add_game.html' %}
 {% endif %}
 
 <!-- Si la catégorie du Poll est Intendance -->

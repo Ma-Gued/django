@@ -20,7 +20,8 @@ urlpatterns = [
     path('', CustomLoginView.as_view(), name='login'),
     path('login/<int:user_id>/', user_login, name='user_login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
-    
+    path('user_list/', user_list, name='user_list'),  # Liste des utilisateurs
+
     path('home/', home_view.home, name='home'),
     path('polls/<int:poll_id>/votes/', poll_votes, name='poll_votes'),
     path('polls/<int:poll_id>/', poll_details, name='poll_details'),

@@ -4,7 +4,7 @@ from clairmarais.models import Poll, VoteOption, UserVote, Game
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
-# @login_required
+@login_required
 def poll_details(request, poll_id):
     poll = get_object_or_404(Poll, id=poll_id)
     
@@ -23,7 +23,6 @@ def poll_details(request, poll_id):
         vote_options = VoteOption.objects.filter(poll=poll)
     
     alert = None
-    print("User:", user)
     
     # Récupérer les votes de l'utilisateur pour les options de vote de ce sondage   
     user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
@@ -50,10 +49,7 @@ def poll_details(request, poll_id):
                     alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
         return redirect('poll_details', poll_id=poll.id)
     
-    games = Game.objects.filter(user=user)
-    print("Games:", games)
-    print("User:", user)
-    print("Request User:", request.user)
+    games = Game.objects.all()
 
     return render(request, 'poll_votes.html', {
         'poll': poll,

@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from clairmarais.models import Game
 
 @login_required
-
 def delete_game(request, game_id):
     if request.method == 'POST':
         game = get_object_or_404(Game, id=game_id)
