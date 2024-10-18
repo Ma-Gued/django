@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from clairmarais.models import Poll, VoteOption, UserVote, Game
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
+# @login_required
 def poll_details(request, poll_id):
     poll = get_object_or_404(Poll, id=poll_id)
-    games = Game.objects.all()
+    
+    user = request.user
 
     # Récupérer les options de vote pour ce sondage
     if poll.category == 'intendance':
@@ -18,16 +21,10 @@ def poll_details(request, poll_id):
         return redirect('logistic', poll_id=poll.id)        
     else:
         vote_options = VoteOption.objects.filter(poll=poll)
+    
     alert = None
-
-    # Récupérer l'utilisateur connecté à partir de la session
-    user_id = request.session.get('user_id')
-    if not user_id:
-        # Rediriger vers la liste des utilisateurs si aucun utilisateur n'est connecté
-        return redirect('user_list')  
-
-    user = get_object_or_404(User, id=user_id)
-
+    print("User:", user)
+    
     # Récupérer les votes de l'utilisateur pour les options de vote de ce sondage   
     user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
     # Créer un dictionnaire pour accéder facilement aux votes de l'utilisateur
@@ -52,11 +49,17 @@ def poll_details(request, poll_id):
                 except IntegrityError:
                     alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
         return redirect('poll_details', poll_id=poll.id)
+    
+    games = Game.objects.filter(user=user)
+    print("Games:", games)
+    print("User:", user)
+    print("Request User:", request.user)
 
     return render(request, 'poll_votes.html', {
         'poll': poll,
         'vote_options': vote_options,
         'user_votes_dict': user_votes_dict,
         'alert': alert,
-        'games': games
+        'games': games, 
+        'current_user': user, 
     })
