@@ -13,6 +13,8 @@
                 <form method="post" action="{% url 'delete_game' game.id %}?poll_id={{ poll.id }}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit">Supprimer</button>
+                </form>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>
