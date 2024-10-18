@@ -25,8 +25,17 @@ def poll_details(request, poll_id):
     alert = None
     
     # Récupérer les votes de l'utilisateur pour les options de vote de ce sondage   
-    user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
-    # Créer un dictionnaire pour accéder facilement aux votes de l'utilisateur
+    user_votes = UserVote.objects.filter(vote_option__in=vote_options)
+
+        # Récupérer les utilisateurs pour chaque option de vote
+    option_users_dict = {}
+    for option in vote_options:
+        user_votes_for_option = UserVote.objects.filter(vote_option=option)
+        option_users_dict[option.id] = {
+            'oui': [vote.user.username for vote in user_votes_for_option if vote.response == 'oui'],
+            'non': [vote.user.username for vote in user_votes_for_option if vote.response == 'non']
+        }
+    # Créer un dictionnaire des votes de l'utilisateur pour chaque option de vote
     user_votes_dict = {vote.vote_option.id: vote.response for vote in user_votes}
 
     # Enregistrer les votes de l'utilisateur
@@ -55,6 +64,7 @@ def poll_details(request, poll_id):
         'poll': poll,
         'vote_options': vote_options,
         'user_votes_dict': user_votes_dict,
+        'option_users_dict': option_users_dict,
         'alert': alert,
         'games': games, 
         'current_user': user, 
