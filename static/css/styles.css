@@ -29,8 +29,13 @@ a:hover {
 
 li {
     list-style-type: none;
-    padding-bottom: 3.5% !important;
+    padding-bottom: 3% !important;
     font-size: 30px;
+}
+
+.polls-list{
+    list-style-type: none;
+    font-size: 18px;
 }
 
 .logout-btn{
