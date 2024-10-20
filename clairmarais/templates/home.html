@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clairmarais Fever</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    {% include 'home/header.html' %}
+    {% include 'home/polls_list.html' %} 
+    <p style="font-size: 0.8em">(PS: C'est toi mon chaton préféré 😼)</p>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Déconnexion</button>
+    </form>
+</body>
+</html>
+
