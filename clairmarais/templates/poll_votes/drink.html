@@ -6,7 +6,7 @@
     {% for option in vote_options %}
         <div>
             <li>
-                <div>
+                <div style="padding-bottom: 5px;" > 
                     <span class="option">{{ option }}</span>
                     <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
                         {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
