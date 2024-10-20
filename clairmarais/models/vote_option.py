@@ -4,10 +4,12 @@ from .meal import Meal
 from .intendance import Intendance
 from .game import Game
 from .logistic import Logistic
+from .drink import Drink
 
 class VoteOption(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     meal = models.ForeignKey('Meal', null=True, blank=True, on_delete=models.CASCADE)
+    drink = models.ForeignKey('Drink', null=True, blank=True, on_delete=models.CASCADE)
     intendance = models.ForeignKey('Intendance', null=True, blank=True, on_delete=models.CASCADE)
     game = models.ForeignKey('Game', null=True, blank=True, on_delete=models.CASCADE)
     logistic = models.ForeignKey('Logistic', null=True, blank=True, on_delete=models.CASCADE)
@@ -15,6 +17,8 @@ class VoteOption(models.Model):
     def __str__(self):
         if self.meal:
             return self.meal.name
+        elif self.drink:
+            return self.drink.name
         elif self.intendance:
             return self.intendance.name
         elif self.game:
@@ -30,6 +34,10 @@ class VoteOption(models.Model):
             meals = Meal.objects.all()
             for meal in meals:
                 VoteOption.objects.create(poll=poll, meal=meal)
+        elif poll.category == 'drink':
+            drinks = Drink.objects.all()
+            for drink in drinks:
+                VoteOption.objects.create(poll=poll, drink=drink)
         elif poll.category == 'intendance':
             intendances = Intendance.objects.all()
             for intendance in intendances:

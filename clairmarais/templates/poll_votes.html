@@ -23,6 +23,12 @@
     {% include 'poll_votes/add_meal.html' %}
 {% endif %}
 
+<!-- Si la catégorie du Poll est Drink -->
+{% if poll.category == 'drink' %}
+    {% include 'poll_votes/drink.html' %}
+    {% include 'poll_votes/add_drink.html' %}
+{% endif %}
+
 <!-- Si la catégorie du Poll est Logistic -->
 {% if poll.category == 'logistic' %}
     {% include 'poll_votes/logistic.html' %}

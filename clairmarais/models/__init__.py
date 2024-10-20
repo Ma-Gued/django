@@ -8,3 +8,4 @@ from .poll import Poll
 from .vote_option import VoteOption
 from .user_vote import UserVote
 from .intendance import Intendance
+from .drink import Drink

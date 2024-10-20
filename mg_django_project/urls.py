@@ -15,7 +15,8 @@ from clairmarais.views.delete_meal_view import delete_meal
 from clairmarais.views.custom_login_view import CustomLoginView
 from clairmarais.views.custom_logout_view import CustomLogoutView
 from clairmarais.views.login_view import user_login, user_list
-
+from clairmarais.views.add_drink_view import add_drink
+from clairmarais.views.delete_drink_view import delete_drink
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,9 @@ urlpatterns = [
     path('delete_game/<int:game_id>/', delete_game, name='delete_game'),
     path('add_meal/', add_meal, name='add_meal'),
     path('delete_meal/<int:meal_id>/', delete_meal, name='delete_meal'),
+    path('add_drink/', add_drink, name='add_drink'),
+    path('delete_drink/<int:drink_id>/', delete_drink, name='delete_drink'),
+
     path('poll/<int:poll_id>/logistic/', logistic, name='logistic'),
             
 

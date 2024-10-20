@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from clairmarais.models import Poll, VoteOption, UserVote, Game, Meal
+from clairmarais.models import Poll, VoteOption, UserVote, Game, Meal, Drink
 from django.contrib.auth.models import User
 
 @login_required
@@ -16,6 +16,8 @@ def poll_details(request, poll_id):
         vote_options = VoteOption.objects.filter(poll=poll, intendance__isnull=False)
     elif poll.category == 'meal':
         vote_options = VoteOption.objects.filter(poll=poll, meal__isnull=False)
+    elif poll.category == 'drink':
+        vote_options = VoteOption.objects.filter(poll=poll, drink__isnull=False)
     elif poll.category == 'game':
         vote_options = VoteOption.objects.filter(poll=poll, game__isnull=False)
     elif poll.category == 'logistic':
@@ -26,7 +28,6 @@ def poll_details(request, poll_id):
     alert = None
 
     if request.method == 'POST':
-        # Vérifiez si le bouton "Supprimer" a été cliqué
         delete_meal_id = request.POST.get('delete_meal')
         if delete_meal_id:
             try:
@@ -37,6 +38,17 @@ def poll_details(request, poll_id):
                     return redirect('poll_details', poll_id=poll.id)
             except ValueError:
                 alert = 'Invalid meal ID.'
+                
+        delete_drink_id = request.POST.get('delete_drink')
+        if delete_drink_id:
+            try:
+                delete_drink_id = int(delete_drink_id)
+                drink = get_object_or_404(Drink, id=delete_drink_id)
+                if drink.user == user:
+                    drink.delete()
+                    return redirect('poll_details', poll_id=poll.id)
+            except ValueError:
+                alert = 'Invalid drink ID.'
 
         # Enregistrer les votes pour les options de vote
         for option in vote_options:
@@ -71,6 +83,23 @@ def poll_details(request, poll_id):
                 except IntegrityError:
                     alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
         
+        # Enregistrer les votes pour les boissons
+        drink_vote_options = VoteOption.objects.filter(poll=poll, drink__isnull=False)
+        for drink_vote_option in drink_vote_options:
+            response = request.POST.get(f'proposal_{drink_vote_option.drink.id}')
+            if response:
+                try:
+                    user_vote, created = UserVote.objects.get_or_create(
+                        user=user,
+                        vote_option=drink_vote_option,
+                        defaults={'response': response}
+                    )
+                    if not created:
+                        user_vote.response = response
+                        user_vote.save()
+                except IntegrityError:
+                    alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
+                    
         return redirect('poll_details', poll_id=poll.id)
     
     # Récupérer les votes de l'utilisateur pour les options de vote
@@ -81,6 +110,12 @@ def poll_details(request, poll_id):
     meal_vote_options = VoteOption.objects.filter(poll=poll, meal__isnull=False)
     meal_votes = UserVote.objects.filter(user=user, vote_option__in=meal_vote_options)
     meal_votes_dict = {vote.vote_option.id: vote.response for vote in meal_votes}
+    
+    # print(drink)
+    # Récupérer les votes de l'utilisateur pour les boissons
+    drink_vote_options = VoteOption.objects.filter(poll=poll, drink__isnull=False)
+    drink_votes = UserVote.objects.filter(user=user, vote_option__in=drink_vote_options)
+    drink_votes_dict = {vote.vote_option.id: vote.response for vote in drink_votes}
     
     # Récupérer les utilisateurs pour chaque option de vote
     option_users_dict = {}
@@ -96,6 +131,7 @@ def poll_details(request, poll_id):
     
     # Récupérer les repas via les options de vote
     meals = [vote_option.meal for vote_option in meal_vote_options]
+    drinks = [vote_option.drink for vote_option in drink_vote_options]
     
     return render(request, 'poll_votes.html', {
         'poll': poll,
@@ -107,4 +143,6 @@ def poll_details(request, poll_id):
         'games': games, 
         'meals': meals,
         'current_user': user,
+        'drinks': drinks,
+        'drink_votes_dict': drink_votes_dict
     })
