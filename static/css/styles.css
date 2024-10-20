@@ -25,6 +25,7 @@ a:hover {
 li {
     list-style-type: none;
     padding-bottom: 2% !important;
+    font-size: 2em;
 }
 
 .logout-btn{
@@ -41,7 +42,7 @@ li {
 
 .supp{
     padding-top: 1%;
-    font-size: 0.8em;
+    font-size: 0.75em;
 }
 
 .countdown{

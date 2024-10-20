@@ -7,21 +7,19 @@
         <div>
             <li>
                 <div>
-                    <h2>
-                        <span class="option">{{ option }}</span>
-                        <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
-                        {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
-                            <label for="dislike_{{ option.id }}">🤮</label>         
-                        <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
-                        {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
-                            <label for="neutral_{{ option.id }}">🤐</label>
-                     <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
-                        {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
-                            <label for="like_{{ option.id }}">😋</label>
-                    </h2>
+                    <span class="option">{{ option }}</span>
+                    <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
+                        <label for="dislike_{{ option.id }}">🤮</label>         
+                    <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
+                        <label for="neutral_{{ option.id }}">🤐</label>
+                    <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
+                    {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
+                        <label for="like_{{ option.id }}">😋</label>
                 </div>   
                 {% if option.meal.user.username == user.username %}
-                    <h3><span class="supp">Ajouté par moi 🤚</span></h3>
+                    <span class="supp">Ajouté par moi 🤚</span>
                     <button type="submit" name="delete_meal" value="{{ option.meal.id }}">Supprimer</button>
                 {% endif %}
             </li>
