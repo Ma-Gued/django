@@ -24,10 +24,27 @@ a:hover {
 
 li {
     list-style-type: none;
+    padding-bottom: 1%
 }
 
 .logout-btn{
     color: rgb(149, 32, 36);
     font-weight: bolder;
     font-size: 0.8em;
+}
+
+.option{
+    display: inline-block;
+    width: 15%;
+}
+
+.supp{
+    padding-left: 2%;
+    font-size: 0.8em;
+}
+
+.countdown{
+    font-size: 0.7em;
+    color: #666;
+    margin-top: -12px; 
 }
