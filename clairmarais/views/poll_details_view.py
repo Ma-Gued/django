@@ -1,16 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from clairmarais.models import Poll, VoteOption, UserVote, Game
-from django.contrib.auth.models import User
 from django.db import IntegrityError
+from clairmarais.models import Poll, VoteOption, UserVote, Game, Meal
+from django.contrib.auth.models import User
 
 @login_required
 def poll_details(request, poll_id):
+    # Récupérer le sondage
     poll = get_object_or_404(Poll, id=poll_id)
     
     user = request.user
-
-    # Récupérer les options de vote pour ce sondage
+    
+    # Récupérer les options de vote en fonction de la catégorie du sondage
     if poll.category == 'intendance':
         vote_options = VoteOption.objects.filter(poll=poll, intendance__isnull=False)
     elif poll.category == 'meal':
@@ -23,11 +24,65 @@ def poll_details(request, poll_id):
         vote_options = VoteOption.objects.filter(poll=poll)
     
     alert = None
-    
-    # Récupérer les votes de l'utilisateur pour les options de vote de ce sondage   
-    user_votes = UserVote.objects.filter(vote_option__in=vote_options)
 
-        # Récupérer les utilisateurs pour chaque option de vote
+    if request.method == 'POST':
+        # Vérifiez si le bouton "Supprimer" a été cliqué
+        delete_meal_id = request.POST.get('delete_meal')
+        if delete_meal_id:
+            try:
+                delete_meal_id = int(delete_meal_id)
+                meal = get_object_or_404(Meal, id=delete_meal_id)
+                if meal.user == user:
+                    meal.delete()
+                    return redirect('poll_details', poll_id=poll.id)
+            except ValueError:
+                alert = 'Invalid meal ID.'
+
+        # Enregistrer les votes pour les options de vote
+        for option in vote_options:
+            response = request.POST.get(f'proposal_{option.id}')
+            if response:
+                try:
+                    user_vote, created = UserVote.objects.get_or_create(
+                        user=user,
+                        vote_option=option,
+                        defaults={'response': response}
+                    )
+                    if not created:
+                        user_vote.response = response
+                        user_vote.save()
+                except IntegrityError:
+                    alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
+        
+        # Enregistrer les votes pour les repas
+        meal_vote_options = VoteOption.objects.filter(poll=poll, meal__isnull=False)
+        for meal_vote_option in meal_vote_options:
+            response = request.POST.get(f'proposal_{meal_vote_option.meal.id}')
+            if response:
+                try:
+                    user_vote, created = UserVote.objects.get_or_create(
+                        user=user,
+                        vote_option=meal_vote_option,
+                        defaults={'response': response}
+                    )
+                    if not created:
+                        user_vote.response = response
+                        user_vote.save()
+                except IntegrityError:
+                    alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
+        
+        return redirect('poll_details', poll_id=poll.id)
+    
+    # Récupérer les votes de l'utilisateur pour les options de vote
+    user_votes = UserVote.objects.filter(user=user, vote_option__in=vote_options)
+    user_votes_dict = {vote.vote_option.id: vote.response for vote in user_votes}
+    
+    # Récupérer les votes de l'utilisateur pour les repas
+    meal_vote_options = VoteOption.objects.filter(poll=poll, meal__isnull=False)
+    meal_votes = UserVote.objects.filter(user=user, vote_option__in=meal_vote_options)
+    meal_votes_dict = {vote.vote_option.id: vote.response for vote in meal_votes}
+    
+    # Récupérer les utilisateurs pour chaque option de vote
     option_users_dict = {}
     for option in vote_options:
         user_votes_for_option = UserVote.objects.filter(vote_option=option)
@@ -35,37 +90,21 @@ def poll_details(request, poll_id):
             'oui': [vote.user.username for vote in user_votes_for_option if vote.response == 'oui'],
             'non': [vote.user.username for vote in user_votes_for_option if vote.response == 'non']
         }
-    # Créer un dictionnaire des votes de l'utilisateur pour chaque option de vote
-    user_votes_dict = {vote.vote_option.id: vote.response for vote in user_votes}
 
-    # Enregistrer les votes de l'utilisateur
-    if request.method == 'POST':
-        for option in vote_options:
-            response = request.POST.get(f'proposal_{option.id}')
-            if response:
-                try:
-                    # Vérifier si un vote existe déjà pour cet utilisateur et cette option de vote
-                    user_vote, created = UserVote.objects.get_or_create(
-                        user=user,
-                        vote_option=option,
-                        defaults={'response': response}
-                    )
-                    if not created:
-                        # Si le vote existe déjà, mettre à jour la réponse
-                        user_vote.response = response
-                        user_vote.save()
-                except IntegrityError:
-                    alert = 'Une erreur est survenue lors de la mise à jour de votre vote.'
-        return redirect('poll_details', poll_id=poll.id)
-    
+    # Récupérer les jeux associés au sondage
     games = Game.objects.all()
-
+    
+    # Récupérer les repas via les options de vote
+    meals = [vote_option.meal for vote_option in meal_vote_options]
+    
     return render(request, 'poll_votes.html', {
         'poll': poll,
         'vote_options': vote_options,
         'user_votes_dict': user_votes_dict,
         'option_users_dict': option_users_dict,
+        'meal_votes_dict': meal_votes_dict,
         'alert': alert,
         'games': games, 
-        'current_user': user, 
+        'meals': meals,
+        'current_user': user,
     })
