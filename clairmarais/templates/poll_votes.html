@@ -34,6 +34,11 @@
     {% include 'poll_votes/logistic.html' %}
 {% endif %}
 
+<!-- Si la catégorie du Poll est Payment -->
+{% if poll.category == 'payment' %}
+    {% include 'poll_votes/payment.html' %}
+{% endif %}
+
 
 {% if alert %}
     <div class="alert">

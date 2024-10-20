@@ -21,7 +21,9 @@ def poll_details(request, poll_id):
     elif poll.category == 'game':
         vote_options = VoteOption.objects.filter(poll=poll, game__isnull=False)
     elif poll.category == 'logistic':
-        return redirect('logistic', poll_id=poll.id)        
+        return redirect('logistic', poll_id=poll.id)  
+    elif poll.category == 'payment':
+        vote_options = VoteOption.objects.filter(poll=poll, payment__isnull=False)    
     else:
         vote_options = VoteOption.objects.filter(poll=poll)
     
@@ -131,7 +133,9 @@ def poll_details(request, poll_id):
     
     # Récupérer les repas via les options de vote
     meals = [vote_option.meal for vote_option in meal_vote_options]
+    # Récupérer les boissons via les options de vote
     drinks = [vote_option.drink for vote_option in drink_vote_options]
+
     
     return render(request, 'poll_votes.html', {
         'poll': poll,

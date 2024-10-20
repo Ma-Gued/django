@@ -7,6 +7,7 @@ class Poll(models.Model):
         ('intendance', 'Intendance'),
         ('game', 'Game'),
         ('logistic', 'Logistic'),
+        ('payment', 'Payment'),
     ]
 
     question = models.CharField(max_length=255)

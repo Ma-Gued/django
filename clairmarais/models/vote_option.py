@@ -5,6 +5,7 @@ from .intendance import Intendance
 from .game import Game
 from .logistic import Logistic
 from .drink import Drink
+from .payment import Payment
 
 class VoteOption(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
@@ -13,7 +14,8 @@ class VoteOption(models.Model):
     intendance = models.ForeignKey('Intendance', null=True, blank=True, on_delete=models.CASCADE)
     game = models.ForeignKey('Game', null=True, blank=True, on_delete=models.CASCADE)
     logistic = models.ForeignKey('Logistic', null=True, blank=True, on_delete=models.CASCADE)
-      
+    payment = models.ForeignKey('Payment', null=True, blank=True, on_delete=models.CASCADE)  
+    
     def __str__(self):
         if self.meal:
             return self.meal.name
@@ -25,6 +27,8 @@ class VoteOption(models.Model):
             return self.game.name
         elif self.logistic:
             return self.logistic.name
+        elif self.payment:
+            return self.payment.name
         return "Vote Option"
     
     # Création des options de vote pour un sondage
@@ -50,3 +54,8 @@ class VoteOption(models.Model):
             logistics = Logistic.objects.all()
             for logistic in logistics:
                 VoteOption.objects.create(poll=poll, logistic=logistic)
+        elif poll.category == 'payment':
+            payments = Payment.objects.all()
+            for payment in payments:
+                VoteOption.objects.create(poll=poll, payment=payment)
+                

@@ -9,3 +9,4 @@ from .vote_option import VoteOption
 from .user_vote import UserVote
 from .intendance import Intendance
 from .drink import Drink
+from .payment import Payment
