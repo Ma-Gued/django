@@ -1,7 +1,8 @@
 {% load custom_filters %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
+<a href="{% url 'home' %}" class="btn">Retour</a>
+<br>
 <h2>Les trucs utiles à ramener 👍🛌🔌</h2>
 <form method="post" action="{% url 'logistic' poll.id %}">
     {% csrf_token %}
