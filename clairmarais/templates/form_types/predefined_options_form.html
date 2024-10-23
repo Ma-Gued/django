@@ -17,7 +17,7 @@
 </form>
 
 <!-- Récapitulatif option/user -->
-<h1>Le petit récap</h1>
+<h3>Le petit récap</h3>
 <form method="post" action="{% url 'poll_votes' poll.id %}">
     {% csrf_token %}
     <ul>

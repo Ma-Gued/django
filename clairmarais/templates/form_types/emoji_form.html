@@ -12,11 +12,12 @@
             <button type="submit" name="delete_option" value="{{ option.id }}">Supprimer</button>
         {% endif %}
     {% endfor %}
+    <br>
     <div>
         <button type="submit" name="submit_votes">Voter</button>
     </div>
 </form>
 
 <!-- Ajout d'option par les utilisateurs -->
-<h1>J'ai une autre idée</h1>
+<h3>J'ai une autre idée</h3>
 {% include "form_types/add_option_form.html" %}

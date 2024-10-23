@@ -7,7 +7,7 @@
 <ul>
     {% for option in vote_options %}
             <li>
-                {{ option.user.username }} - <span>{{ option.name }}</span>
+                <span>{{ option.name }}</span> - {{ option.user.username }}
                 {% if option.user.username == user.username %}
                     <form method="post" action="{% url 'poll_votes' poll.id %}" style="display:inline;">
                         {% csrf_token %}
