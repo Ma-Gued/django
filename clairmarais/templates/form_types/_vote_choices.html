@@ -1,6 +1,6 @@
 {% load custom_filters %}
 
-<div>
+<div>   
     <span>{{ option.name }}</span>
     {% for choice in vote_choices %}
         <input 
@@ -11,25 +11,5 @@
         {% has_voted user_votes_dict|get_item:option.id request.user.username choice as voted %}
         {% if voted %}checked{% endif %}>
         <label for="{{ choice }}_{{ option.id }}">{{ choice }}</label>
-    {% endfor %} 
-</div>
-<!-- Si l'utilisateur a ajouté cette option, il peut la retirer -->
-{% if option.user.username == user.username %}
-    <span class="supp">Ajouté par moi 🤚</span>
-    <button type="submit" name="delete_option" value="{{ option.id }}">Supprimer</button>
-{% endif %}
-<!-- Affichage des votes des utilisateurs -->
-<div>
-    {% with option_users_dict|get_item:option.id as users %}
-        <div>
-            {% if users.oui %}
-                👍😊 {{ users.oui|join:", " }}
-            {% endif %}
-        </div>
-        <div>
-            {% if users.non %}
-                👎😭 {{ users.non|join:", " }}
-            {% endif %}
-        </div>
-    {% endwith %}
+    {% endfor %}
 </div>

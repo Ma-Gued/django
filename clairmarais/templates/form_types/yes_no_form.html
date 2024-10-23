@@ -4,20 +4,9 @@
 <form method="post" action="{% url 'poll_votes' poll.id %}">
     {% csrf_token %}
     {% for option in vote_options %}
-        <div>
-            <span>{{ option.name }}</span>
-            {% for yes_no in vote_choices %}
-                <input 
-                type="radio" 
-                name="proposal_{{ option.id }}" 
-                value="{{ yes_no }}" 
-                id="{{ yes_no }}_{{ option.id }}"
-                {% has_voted user_votes_dict|get_item:option.id request.user.username yes_no as voted %}
-                {% if voted %}checked{% endif %}>
-                <label for="{{ yes_no }}_{{ option.id }}">{{ yes_no }}</label>
-            {% endfor %} 
-        </div>
-        <!-- Affichage des votes des utilisateurs -->
+
+        {% include "form_types/_vote_choices.html" %} <!-- Disponibilité des choix dans get_vote_choices(view)-->
+
         <div>
             {% with option_users_dict|get_item:option.id as users %}
                 <div>
