@@ -1,27 +1,28 @@
 {% load custom_filters %}
 
+<!-- Vote des utilisateurs sur les options proposées (oui/non) -->
 <form method="post" action="{% url 'poll_votes' poll.id %}">
     {% csrf_token %}
-
     {% for option in vote_options %}
         <div>
-            <li>
-                <span>{{ option.name }}</span>
-                <input type="radio" name="proposal_{{ option.id }}" value="oui" id="oui_{{ option.id }}"
-                {% has_voted user_votes_dict|get_item:option.id request.user.username 'oui' as voted %}
+            <span>{{ option.name }}</span>
+            {% for yes_no in vote_choices %}
+                <input 
+                type="radio" 
+                name="proposal_{{ option.id }}" 
+                value="{{ yes_no }}" 
+                id="{{ yes_no }}_{{ optsion.id }}"
+                {% has_voted user_votes_dict|get_item:option.id request.user.username yes_no as voted %}
                 {% if voted %}checked{% endif %}>
-                <label for="oui_{{ option.id }}">Oui</label>
-                <input type="radio" name="proposal_{{ option.id }}" value="non" id="non_{{ option.id }}"
-                {% has_voted user_votes_dict|get_item:option.id request.user.username 'non' as voted %}
-                {% if voted %}checked{% endif %}>
-                <label for="non_{{ option.id }}">Non</label>
-            </li>
+                <label for="{{ yes_no }}_{{ option.id }}">{{ yes_no }}</label>
+            {% endfor %} 
         </div>
+        <!-- Affichage des votes des utilisateurs -->
         <div>
             {% with option_users_dict|get_item:option.id as users %}
                 <div>
                     {% if users.oui %}
-                        ✋😊 {{ users.oui|join:", " }}
+                        👍😊 {{ users.oui|join:", " }}
                     {% endif %}
                 </div>
                 <div>

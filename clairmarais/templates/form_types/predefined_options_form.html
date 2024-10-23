@@ -1,34 +1,34 @@
-<br>
-<h2>Les trucs utiles à ramener 👍🛌🔌</h2>
-<form method="post" action="{% url 'logistic' poll.id %}">
+{% load custom_filters %}
+
+<!-- Liste prédéfinie (TODO par ex.) -->
+<form method="post" action="{% url 'poll_votes' poll.id %}">
     {% csrf_token %}
     <ul>
-        {% for option in unselected_options %}
-            <li>
-                {{ option }}
-                <input type="hidden" name="vote_option_id" value="{{ option.id }}">
-                <button type="submit">Je ramène</button>
-                
-            </li>
-            <br>
+        {% for option in vote_options %}
+            {% has_voted user_votes_dict|get_item:option.id request.user.username 'oui' as voted %}
+            {% if not voted %}
+                <li>
+                    <span>{{ option.name }}</span>
+                    <button type="submit" name="proposal_{{ option.id }}" value="oui">Je m'en charge</button>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </form>
 
-<h2>Le petit récap 🙏</h2>
-<ul>
-    {% for option_id, username in selected_options.items %}
-        <li>
-            {{ logistic_vote_options|get_item:option_id }} ramené par {{ username }}
-            {% if username == user.username %}
-            <form method="post" action="{% url 'logistic' poll.id %}" style="display:inline;">
-                {% csrf_token %}
-                <input type="hidden" name="vote_option_id" value="{{ option_id }}">
-                <input type="hidden" name="action" value="remove">
-                <button type="submit">J'annule</button>
-            </form>
-        {% endif %}
-        </li>
-        <br>
-    {% endfor %}
-</ul>
+<!-- Récapitulatif option/user -->
+<h1>Le petit récap</h1>
+<form method="post" action="{% url 'poll_votes' poll.id %}">
+    {% csrf_token %}
+    <ul>
+        {% for option in vote_options %}
+            {% has_voted user_votes_dict|get_item:option.id request.user.username 'oui' as voted %}
+            {% if voted %}
+                <li>
+                    <span>{{ option.name }}</span>
+                    <button type="submit" name="proposal_{{ option.id }}" value="non">Annuler</button>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</form>

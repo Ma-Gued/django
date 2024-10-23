@@ -1,0 +1,9 @@
+{% load custom_filters %}
+
+<form method="post" action="{% url 'poll_votes' poll.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="poll_id" value="{{ poll.id }}">
+    <label for="new_option"></label>
+    <input type="text" id="new_option" name="new_option">
+    <button type="submit" name="add_option" value="add_option">Ajouter</button>
+</form>

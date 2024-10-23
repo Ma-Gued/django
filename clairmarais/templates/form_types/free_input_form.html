@@ -1,24 +1,20 @@
-<h1>Les jeux que je ramène 🤟🎲</h1>
-<form method="post" action="{% url 'add_game' %}">
-    {% csrf_token %}
-    <input type="hidden" name="poll_id" value="{{ poll.id }}">
-    <label for="game_name"></label>
-    <input type="text" id="game_name" name="game_name" style="font-size: 30px;">
-    <button type="submit" name="add_game" value="add_game">Ajouter</button>
-</form>
-{% load custom_chars %}
+{% load custom_filters %}
 
+<!-- Ajout d'une option par l'utilisateur -->
+{% include "form_types/add_option_form.html" %}
+
+<!-- Supression d'une option par l'utilisateur qui l'avait créée -->
 <ul>
-    {% for game in games %}
-        <li>
-            {{ game.user.username }} ramène <span>{{ game.name|get_random_char:"💃🤞🙏🎃💋🏓🃏🏆⌛🍟🍷🍺🍹🧀🌳" }}</span>
-
-            {% if game.user.username == user.username %}
-                <form method="post" action="{% url 'delete_game' game.id %}?poll_id={{ poll.id }}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Supprimer</button>
-                </form>
-            {% endif %}
-        </li>
+    {% for option in vote_options %}
+            <li>
+                {{ option.user.username }} - <span>{{ option.name }}</span>
+                {% if option.user.username == user.username %}
+                    <form method="post" action="{% url 'poll_votes' poll.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_option" value="{{ option.id }}">
+                        <button type="submit">Annuler</button>
+                    </form>
+                {% endif %}
+            </li>
     {% endfor %}
 </ul>

@@ -6,7 +6,6 @@ from clairmarais.views.utils import handle_poll_interactions
 @login_required
 def poll_votes(request, poll_id):
     context = handle_poll_interactions(request, poll_id, 'form')
-
     if isinstance(context, dict):
         return render(request, context['template_name'], context)
     return context
