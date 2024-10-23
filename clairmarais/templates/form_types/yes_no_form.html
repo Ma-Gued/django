@@ -11,7 +11,7 @@
                 type="radio" 
                 name="proposal_{{ option.id }}" 
                 value="{{ yes_no }}" 
-                id="{{ yes_no }}_{{ optsion.id }}"
+                id="{{ yes_no }}_{{ option.id }}"
                 {% has_voted user_votes_dict|get_item:option.id request.user.username yes_no as voted %}
                 {% if voted %}checked{% endif %}>
                 <label for="{{ yes_no }}_{{ option.id }}">{{ yes_no }}</label>
