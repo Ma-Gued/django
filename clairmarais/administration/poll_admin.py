@@ -1,11 +1,11 @@
 from django.contrib import admin
 from clairmarais.models import Poll, VoteOption
 from clairmarais.administration.vote_option_admin import VoteOptionInline
-from clairmarais.forms.forms import PollForm
+from clairmarais.forms.forms import PollCreationForm
 
 # Administration du modèle Poll
 class PollAdmin(admin.ModelAdmin):
-    form = PollForm
+    form = PollCreationForm
     list_display = ('question', 'form_type')
     list_filter = ('form_type',)
     search_fields = ('question',)

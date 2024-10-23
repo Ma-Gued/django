@@ -2,7 +2,7 @@ from django import forms
 from clairmarais.models import Poll
 from clairmarais.constants import FORM_TYPES
 
-class PollForm(forms.ModelForm):
+class PollCreationForm(forms.ModelForm):
     class Meta:
         model = Poll
         fields = ['question', 'form_type']

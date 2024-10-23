@@ -1,0 +1,7 @@
+<h1>Evènement</h1>
+<ul>
+  {% for event in events %}
+    <li><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></li>
+  {% endfor %}
+</ul>
+<a href="{% url 'event_create' %}">Créer un évènement</a>
