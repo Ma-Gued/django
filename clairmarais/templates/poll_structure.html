@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<!-- Bouton de Retour -->
+<a href="{% url 'home' %}" class="btn">Retour</a>
+<br>
+
+<!-- Titre du sondage--> 
+<h1>{{ poll.question }}</h1>
+
+<!-- Afficher le formulaire -->
+{% include template_name %}
+
+<!-- Afficher une alerte -->
+{% if alert %}
+    <div class="alert alert-danger">{{ alert }}</div>
+{% endif %}

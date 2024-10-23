@@ -1,0 +1,33 @@
+{% load custom_filters %}
+
+<form method="post" action="{% url 'poll_votes' poll.id %}">
+    {% csrf_token %}
+    {% for option in vote_options %}
+        <div>   
+            <span>{{ option.name }}</span>
+            {% for emoji in emojis %}
+                <input type="radio" name="proposal_{{ option.id }}" value="{{ emoji }}" id="{{ emoji }}_{{ option.id }}"
+                {% has_voted user_votes_dict|get_item:option.id request.user.username emoji as voted %}
+                {% if voted %}checked{% endif %}>
+                <label for="{{ emoji }}_{{ option.id }}">{{ emoji }}</label>
+            {% endfor %}
+        </div>
+        {% if option.user.username == user.username %}
+            <span class="supp">Ajouté par moi 🤚</span>
+            <button type="submit" name="delete_option" value="{{ option.id }}">Supprimer</button>
+        {% endif %}
+    {% endfor %}
+    <div>
+        <button type="submit" name="submit_votes">Voter</button>
+    </div>
+</form>
+
+
+<h1>J'ajoute une option</h1>
+<form method="post" action="{% url 'poll_votes' poll.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="poll_id" value="{{ poll.id }}">
+    <label for="new_option"></label>
+    <input type="text" id="new_option" name="new_option">
+    <button type="submit" name="add_option" value="add_option">Ajouter</button>
+</form>

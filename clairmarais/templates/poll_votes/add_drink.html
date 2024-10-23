@@ -1,7 +1,0 @@
-<h2>😎 J'ai une autre idée</h2>
-<form method="post" action="{% url 'add_drink' %}">
-    {% csrf_token %}
-    <input type="hidden" name="poll_id" value="{{ poll.id }}">
-    <input type="text" id="drink_name" name="drink_name">
-    <button type="submit" name="add_drink" value="add_drink">Ajouter</button>
-</form>
