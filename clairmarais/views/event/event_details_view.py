@@ -4,7 +4,6 @@ from clairmarais.models import Event
 
 class EventDetailsView(LoginRequiredMixin, DetailView):
     model = Event
-    print(model)
 
     template_name = 'event/event_details.html'
     context_object_name = 'event'

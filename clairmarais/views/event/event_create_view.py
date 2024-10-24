@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from clairmarais.models import Event
-from clairmarais.forms.event_create_form import EventCreationForm
+from clairmarais.forms.event_creation_form import EventCreationForm
 
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
@@ -18,5 +18,4 @@ class EventCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        print(form)
         return super().form_valid(form)

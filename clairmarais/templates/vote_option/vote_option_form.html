@@ -1,0 +1,13 @@
+<h1>Ajouter une option de vote pour le sondage : {{ poll.question }}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<h2>Options de vote existantes</h2>
+<ul>
+  {% for option in vote_options %}
+    <li>{{ option.name }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'event_details' event.id %}" class="btn btn-secondary">Terminer</a>
