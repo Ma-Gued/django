@@ -6,5 +6,5 @@ from clairmarais.forms.event_create_form import EventCreationForm
 
 class EventListView(LoginRequiredMixin, ListView):
     model = Event
-    template_name = 'events/event_list.html'
+    template_name = 'event/event_list.html'
     context_object_name = 'events'
