@@ -8,13 +8,13 @@
             <li>
                 <div style="padding-bottom: 5px;" > 
                     <span class="option">{{ option }}</span>
-                    <input type="radio" name="proposal_{{ option.id }}" value="🤮" id="dislike_{{ option.id }}"
+                    <input type="radio" name="proposal_{{ option.id }}" value="🤮" response="🤮" id="dislike_{{ option.id }}"
                         {% if user_votes_dict|get_item:option.id == '🤮' %}checked{% endif %}>
                     <label for="dislike_{{ option.id }}">🤮</label>         
-                    <input type="radio" name="proposal_{{ option.id }}" value="🤐" id="neutral_{{ option.id }}"
+                    <input type="radio" name="proposal_{{ option.id }}" value="🤐" response="🤐" id="neutral_{{ option.id }}"
                         {% if user_votes_dict|get_item:option.id == '🤐' %}checked{% endif %}>
                     <label for="neutral_{{ option.id }}">🤐</label>
-                    <input type="radio" name="proposal_{{ option.id }}" value="😋" id="like_{{ option.id }}"
+                    <input type="radio" name="proposal_{{ option.id }}" value="😋" response="😋" id="like_{{ option.id }}"
                         {% if user_votes_dict|get_item:option.id == '😋' %}checked{% endif %}>
                     <label for="like_{{ option.id }}">😋</label>
                 </div>

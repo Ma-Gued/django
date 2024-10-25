@@ -9,12 +9,12 @@ from .payment import Payment
 
 class VoteOption(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    meal = models.ForeignKey('Meal', null=True, blank=True, on_delete=models.CASCADE)
-    drink = models.ForeignKey('Drink', null=True, blank=True, on_delete=models.CASCADE)
-    intendance = models.ForeignKey('Intendance', null=True, blank=True, on_delete=models.CASCADE)
-    game = models.ForeignKey('Game', null=True, blank=True, on_delete=models.CASCADE)
-    logistic = models.ForeignKey('Logistic', null=True, blank=True, on_delete=models.CASCADE)
-    payment = models.ForeignKey('Payment', null=True, blank=True, on_delete=models.CASCADE)  
+    meal = models.ForeignKey(Meal, null=True, blank=True, on_delete=models.CASCADE)
+    drink = models.ForeignKey(Drink, null=True, blank=True, on_delete=models.CASCADE)
+    intendance = models.ForeignKey(Intendance, null=True, blank=True, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, null=True, blank=True, on_delete=models.CASCADE)
+    logistic = models.ForeignKey(Logistic, null=True, blank=True, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, null=True, blank=True, on_delete=models.CASCADE)  
     
     def __str__(self):
         if self.meal:

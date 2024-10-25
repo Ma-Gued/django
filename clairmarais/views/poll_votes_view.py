@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from clairmarais.models import Poll, VoteOption, Meal, Intendance, Game
+from clairmarais.models import Poll, VoteOption, Meal, Intendance, Game, UserVote
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -8,6 +8,7 @@ def poll_votes(request, poll_id):
     poll = Poll.objects.get(id=poll_id)
     voteoptions = VoteOption.objects.filter(poll=poll)
     games = Game.objects.all()
+    vote_counts = {option.id: UserVote.objects.filter(vote_option=option).count() for option in voteoptions}
 
     # Si le formulaire est soumis, on enregistre les réponses
     if request.method == 'POST':
