@@ -18,18 +18,18 @@
             <div>
                 {% with option_users_dict|get_item:option.id as users %}
                     <div>
-                        <p>
-                            {% if users.oui %}
-                                ✋😊 {{ users.oui|join:", " }}
-                            {% endif %}
-                        </p>
+                        
+                        {% if users.oui %}
+                        <p>✋😊 {{ users.oui|join:", " }}</p>
+                        {% endif %}
+                        
                     </div>
                     <div>
-                        <p>
-                            {% if users.non %}
-                                👎😭 {{ users.non|join:", " }}
-                            {% endif %}
-                        </p>
+                        
+                        {% if users.non %}
+                        <p>👎😭 {{ users.non|join:", " }}</p>
+                        {% endif %}
+                        
                     </div>
                 {% endwith %}
             </div>
