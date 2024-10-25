@@ -3,7 +3,7 @@
 {% block content %}
     <h1>🤗 Qui es-tu ?</h1>
     {% for user in users %}
-        <li>
+        <li class="polls-list">
             <h2>
             <a href="{% url 'user_login' user.id %}">{{ user.username }}</a>
             </h2>
