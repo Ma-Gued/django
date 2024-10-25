@@ -1,4 +1,4 @@
-<h1>Ajouter une option de vote pour le sondage : {{ poll.question }}</h1>
+{% comment %} <h1>Ajouter une option de vote pour le sondage : {{ poll.question }}</h1>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
@@ -10,4 +10,4 @@
     <li>{{ option.name }}</li>
   {% endfor %}
 </ul>
-<a href="{% url 'event_details' event.id %}" class="btn btn-secondary">Terminer</a>
+<a href="{% url 'event_details' event.id %}" class="btn btn-secondary">Terminer</a> {% endcomment %}
