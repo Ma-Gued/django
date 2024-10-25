@@ -8,15 +8,13 @@
 <h2>Les trucs utiles à ramener 👍🛌🔌</h2>
 <form method="post" action="{% url 'logistic' poll.id %}">
     {% csrf_token %}
-    <ul>
-        {% for option in unselected_options %}
-            <li>
-                {{ option.logistic.name }}
-                <button type="submit" name="action" value="add_{{ option.id }}">Je ramène</button>
-            </li>
-            <br>
-        {% endfor %}
-    </ul>
+    {% for option in unselected_options %}
+        <li>
+            {{ option.logistic.name }}
+            <button type="submit" name="action" value="add_{{ option.id }}">Je ramène</button>
+        </li>
+        <br>
+    {% endfor %}
 </form>
 
 <h4>Le petit récap 🙏</h4>

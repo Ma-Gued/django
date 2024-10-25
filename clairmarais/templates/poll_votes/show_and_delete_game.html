@@ -1,17 +1,15 @@
 {% load custom_chars %}
 {% load static %}
 
-<ul>
-    {% for game in games %}
-        <li>
-            {{ game.user.username }} ramène <span>{{ game.name|get_random_char:"💃🤞🙏🎃💋🏓🃏🏆⌛🍟🍷🍺🍹🧀🌳" }}</span>
+{% for game in games %}
+    <li>
+        {{ game.user.username }} ramène <span>{{ game.name|get_random_char:"💃🤞🙏🎃💋🏓🃏🏆⌛🍟🍷🍺🍹🧀🌳" }}</span>
 
-            {% if game.user.username == user.username %}
-                <form method="post" action="{% url 'delete_game' game.id %}?poll_id={{ poll.id }}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Supprimer</button>
-                </form>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+        {% if game.user.username == user.username %}
+            <form method="post" action="{% url 'delete_game' game.id %}?poll_id={{ poll.id }}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Supprimer</button>
+            </form>
+        {% endif %}
+    </li>
+{% endfor %}

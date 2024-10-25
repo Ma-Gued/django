@@ -1,5 +1,5 @@
 {% load static %}
-<h1>Les jeux que je ramène 🤟🎲</h1>
+<h4>Les jeux que je ramène 🤟🎲</h4>
 <form method="post" action="{% url 'add_game' %}">
     {% csrf_token %}
     <input type="hidden" name="poll_id" value="{{ poll.id }}">
