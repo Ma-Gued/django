@@ -31,7 +31,7 @@ li {
 
 .polls-list{
     list-style-type: none;
-    padding-bottom: 0%;
+    padding-bottom: 0% !important;
 }
 
 .logout-btn{
@@ -39,10 +39,6 @@ li {
     font-weight: bolder;
 }
 
-.option{
-    display: inline-block;
-    width: 38%;
-}
 
 .supp{
     padding-top: 1%;
