@@ -1,6 +1,5 @@
 {% load custom_filters %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 <a href="{% url 'home' %}" class="btn">Retour</a>
 <br>
 <h2>Les trucs utiles à ramener 👍🛌🔌</h2>
@@ -9,10 +8,8 @@
     <ul>
         {% for option in unselected_options %}
             <li>
-                {{ option }}
-                <input type="hidden" name="vote_option_id" value="{{ option.id }}">
-                <button type="submit">Je ramène</button>
-                
+                {{ option.logistic.name }}
+                <button type="submit" name="action" value="add_{{ option.id }}">Je ramène</button>
             </li>
             <br>
         {% endfor %}
@@ -27,11 +24,9 @@
             {% if username == user.username %}
             <form method="post" action="{% url 'logistic' poll.id %}" style="display:inline;">
                 {% csrf_token %}
-                <input type="hidden" name="vote_option_id" value="{{ option_id }}">
-                <input type="hidden" name="action" value="remove">
-                <button type="submit">J'annule</button>
+                <button type="submit" name="action" value="remove_{{ option_id }}">J'annule</button>
             </form>
-        {% endif %}
+            {% endif %}
         </li>
         <br>
     {% endfor %}
