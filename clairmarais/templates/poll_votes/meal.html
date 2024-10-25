@@ -1,3 +1,4 @@
+{% load static %}
 {% load custom_filters %}
 
 <form method="post" action="{% url 'poll_details' poll.id %}">
@@ -23,6 +24,7 @@
                     <span class="supp">Ajouté par moi 🤚</span>
                     <button type="submit" name="delete_meal" value="{{ option.meal.id }}">Supprimer</button>
                 {% endif %}
+                
             </li>
         </div>
     {% endfor %}

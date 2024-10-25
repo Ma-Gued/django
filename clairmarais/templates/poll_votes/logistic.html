@@ -1,4 +1,7 @@
+{% extends 'base.html' %}
 {% load custom_filters %}
+{% block content %}
+
 
 <a href="{% url 'home' %}" class="btn">Retour</a>
 <br>
@@ -16,7 +19,7 @@
     </ul>
 </form>
 
-<h2>Le petit récap 🙏</h2>
+<h4>Le petit récap 🙏</h4>
 <ul>
     {% for option_id, username in selected_options.items %}
         <li>
@@ -31,3 +34,4 @@
         <br>
     {% endfor %}
 </ul>
+{% endblock %}

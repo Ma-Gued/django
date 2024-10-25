@@ -13,10 +13,6 @@ p {
     color: #666;
 }
 
-button {
-    width: 30%;
-    font-size: 30px;
-}
 
 a {
     color: #174372d8;
@@ -29,34 +25,30 @@ a:hover {
 
 li {
     list-style-type: none;
-    padding-bottom: 3% !important;
-    font-size: 30px;
+    padding-bottom: 3%;
 }
+
 
 .polls-list{
     list-style-type: none;
-    font-size: 18px;
+    padding-bottom: 0%;
 }
 
 .logout-btn{
     color: rgb(149, 32, 36);
     font-weight: bolder;
-    font-size: 0.8em;
 }
 
 .option{
     display: inline-block;
     width: 38%;
-    font-size: 1em;
 }
 
 .supp{
     padding-top: 1%;
-    font-size: 0.75em;
 }
 
 .countdown{
-    font-size: 0.7em;
     color: #666;
     margin-top: -12px; 
 }

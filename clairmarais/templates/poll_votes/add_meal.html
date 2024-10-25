@@ -1,7 +1,9 @@
-<h2>😎 J'ai une autre idée</h2>
+{% load static %}
+
+<h4>😎 J'ai une autre idée</h4>
 <form method="post" action="{% url 'add_meal' %}">
     {% csrf_token %}
     <input type="hidden" name="poll_id" value="{{ poll.id }}">
-    <input type="text" id="meal_name" name="meal_name" style="font-size: 30px;">
+    <input type="text" id="meal_name" name="meal_name">
     <span><button type="submit" name="add_meal" value="add_meal">Ajouter</button></span>
 </form>

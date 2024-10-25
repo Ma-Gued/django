@@ -1,4 +1,7 @@
+{% load static %}
 {% load custom_filters %}
+
+
 
 <form method="post" action="{% url 'poll_details' poll.id %}">
     {% csrf_token %}
@@ -22,6 +25,7 @@
                     <span class="supp">Ajouté par moi 🤚</span>
                     <button type="submit" name="delete_drink" value="{{ option.drink.id }}">Supprimer</button>
                 {% endif %}
+                <br>
             </li>
         </div>
     {% endfor %}
