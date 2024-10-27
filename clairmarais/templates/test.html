@@ -1,0 +1,8 @@
+<h4>Le test pour ajouter un vote option</h4>
+<form method="post" action="{% url 'add_vote_option' %}">
+    {% csrf_token %}
+    <input type="hidden" name="poll_id" value="{{ poll.id }}">
+    <label for="game_name"></label>
+    <input type="text" id="game_name" name="game_name">
+    <button type="submit" name="add_vote_option" value="add_vote_option">Ajouter</button>
+</form>

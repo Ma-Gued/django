@@ -1,0 +1,16 @@
+{% load static %}
+
+{{ event.date }}
+
+<div id="countdown">
+    <p class="countdown">⏳ Dans
+        {{ days }} jours, 
+        {{ hours }} heures, 
+        {{ minutes }} minutes
+    </p>
+</div>
+<p>
+    <a href="https://www.google.fr/maps/place/{{ event.address }}" target="_blank">
+    {{ event.address }} 
+    </a>
+</p>

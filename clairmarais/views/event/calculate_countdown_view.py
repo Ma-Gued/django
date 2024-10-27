@@ -1,12 +1,15 @@
 from django.utils import timezone
 from datetime import datetime
+from clairmarais.models import Event
 
-def calculate_countdown():
-    # Date cible pour le compte à rebours
-    target_date = datetime(2024, 11, 1, 18, 0, 0)
-    target_date = timezone.make_aware(target_date, timezone.get_current_timezone())
+def calculate_countdown(event_date):
+    # Date cible pour le compte à rebours (à partir de la date de l'événement)
+    target_date = Event.objects.get(id=1).date
+    # Vérifier si la date cible est naïve ou consciente du fuseau horaire
+    if timezone.is_naive(target_date):
+        target_date = timezone.make_aware(target_date, timezone.get_current_timezone())
     now = timezone.now()
-
+    
     # Calculer le temps restant
     time_remaining = target_date - now
 

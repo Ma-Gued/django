@@ -1,9 +1,11 @@
 <h1>{{ event.name }}</h1>
+
+<!-- Lien vers la description de l'évènement-->
 <p>{{ event.description }}</p>
-<h2>Polls</h2>
-<ul>
-  {% for poll in event.polls.all %}
-    <li>{{ poll.question }}</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'poll_create' event.id %}">Create Poll</a>
+{% include 'event/event_details_description.html'%}
+
+<!-- Liste des sondages de cet évènement-->
+{% include 'home/polls_list.html' %}
+
+<!-- Lien pour créer un sondage pour cet évènement-->
+<a href="{% url 'poll_create' event.id %}">Créer un sondage</a>

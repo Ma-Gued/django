@@ -1,19 +1,20 @@
-<h1>Créer un sondage</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <h2>Ajouter des options de vote</h2>
-  {{ vote_option_formset.management_form }}
-  {% for form in vote_option_formset %}
-    <div class="form-row">
-      <div class="col">
-        {{ form.name.label_tag }} {{ form.name }}
+
+  <h1>Créer un sondage</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2>Ajouter des options de vote</h2>
+    {{ vote_option_formset.management_form }}
+    {% for form in vote_option_formset %}
+      <div class="form-row">
+        <div class="col">
+          {{ form.name.label_tag }} {{ form.name }}
+        </div>
+        <div class="col">
+          {{ form.DELETE.label_tag }} {{ form.DELETE }}
+        </div>
       </div>
-      <div class="col">
-        {{ form.DELETE.label_tag }} {{ form.DELETE }}
-      </div>
-    </div>
-  {% endfor %}
-  <button type="submit" class="btn btn-primary">Enregistrer</button>
-</form>
-<a href="{% url 'event_details' event_id %}" class="btn btn-secondary">Terminer</a>
+    {% endfor %}
+    <button type="submit" name="add_vote_option" value="add_vote_option" class="btn btn-secondary">Ajouter une option de vote</button>
+    <button type="submit" name="save_poll" value="save_poll" class="btn btn-primary">Enregistrer</button>
+  </form>
