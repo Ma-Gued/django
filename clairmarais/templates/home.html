@@ -13,9 +13,6 @@
     <!--TODO Rectifier les champs etc. pour que tout à l'affichage soit en français -->
 
     {% include 'event/event_list.html' %}
-    ----------
-    {% include 'home/header.html' %}
-    {% include 'home/polls_list.html' %} 
 
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}

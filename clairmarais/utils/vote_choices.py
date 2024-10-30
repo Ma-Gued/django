@@ -1,7 +1,7 @@
 def get_vote_choices(poll):
     if poll.form_type == 'emoji':
-        return ['🤮', '🤐', '😋']
+        return ['👎', '🤐', '👍']
     elif poll.form_type == 'yes_no':
-        return ['oui', 'non']
+        return ['👎', '👍']
     else:
         return []

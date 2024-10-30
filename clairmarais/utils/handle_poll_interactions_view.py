@@ -7,8 +7,8 @@ from clairmarais.utils.user_votes_dict import get_user_votes_dict
 from clairmarais.utils.option_users_dict import get_option_users_dict
 from clairmarais.utils.vote_choices import get_vote_choices
 
-def handle_poll_interactions(request, poll_id, template_prefix):
-    poll = get_object_or_404(Poll, id=poll_id)
+def handle_poll_interactions(request, event_id, poll_id, template_prefix):
+    poll = get_object_or_404(Poll, id=poll_id, event_id=event_id)
     user = request.user
     vote_options = VoteOption.objects.filter(poll=poll)
     
@@ -20,7 +20,7 @@ def handle_poll_interactions(request, poll_id, template_prefix):
     if request.method == 'POST':
         alert, should_redirect = post_condition_handler(request, poll_id, user, poll, vote_options)
         if should_redirect:
-            return redirect(reverse('poll_details', args=[poll_id]))
+            return redirect(reverse('poll_details', args=[event_id, poll_id]))
 
     # Récupérer les votes des utilisateurs
     user_votes_dict = get_user_votes_dict(vote_options)
@@ -33,13 +33,14 @@ def handle_poll_interactions(request, poll_id, template_prefix):
 
    # Définir le form (template) à utiliser
     template_name = f'form_types/{poll.form_type}_{template_prefix}.html'
-
-    return {
+    print(("------------------poll id : ", poll_id))
+    context = {
         'poll': poll,
         'vote_options': vote_options,
-        'option_users_dict': option_users_dict,
         'user_votes_dict': user_votes_dict,
-        'alert': alert,
-        'template_name': template_name,
+        'option_users_dict': option_users_dict,
         'vote_choices': vote_choices,
+        'alert': alert,
+        'template_name': template_name,        
     }
+    return context

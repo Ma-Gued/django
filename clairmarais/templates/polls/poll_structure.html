@@ -6,7 +6,7 @@
 <h1>{{ poll.question }}</h1>
 
 <!-- Afficher le formulaire -->
-{% include template_name %}
+{% include "form_types/"|add:form_type|add:"_form.html" %}
 
 <!-- Afficher une alerte -->
 {% if alert %}

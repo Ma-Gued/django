@@ -4,12 +4,13 @@
     <span>{{ option.name }}</span>
     {% for choice in vote_choices %}
         <input 
-        type="radio" 
-        name="proposal_{{ option.id }}" 
-        value="{{ choice }}" 
-        id="{{ choice }}_{{ option.id }}"
-        {% has_voted user_votes_dict|get_item:option.id request.user.username choice as voted %}
-        {% if voted %}checked{% endif %}>
+            type="radio" 
+            name="proposal_{{ option.id }}" 
+            value="{{ choice }}" 
+            id="{{ choice }}_{{ option.id }}"
+            {% if user_votes_dict and user_votes_dict|get_item:option.id and user_votes_dict|get_item:option.id|get_item:request.user.username == choice %}
+                checked
+            {% endif %}>
         <label for="{{ choice }}_{{ option.id }}">{{ choice }}</label>
     {% endfor %}
 </div>
