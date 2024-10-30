@@ -4,6 +4,7 @@ from clairmarais.views.utils import handle_poll_interactions
 from clairmarais.models import Poll, VoteOption
 from clairmarais.forms.vote_option_creation_form import VoteOptionFormSet
 from clairmarais.utils.vote_choices import get_vote_choices
+from clairmarais.utils.user_votes_dict import get_user_votes_dict
 
 # Vue pour afficher les détails d'un sondage et gérer les votes des utilisateurs
 @login_required
@@ -13,6 +14,7 @@ def poll_details(request, event_id, poll_id):
     form_type = poll.form_type
     vote_options = VoteOption.objects.filter(poll=poll)
     vote_choices = get_vote_choices(poll)
+    user_votes_dict = get_user_votes_dict(vote_options) 
 
     context = {
         'event_id': event_id,
@@ -21,7 +23,6 @@ def poll_details(request, event_id, poll_id):
         'vote_option_formset': vote_option_formset,
         'form_type': form_type,
         'vote_choices': vote_choices,
-        'poll_id': poll_id,
-        'event_id': event_id,
+        'user_votes_dict': user_votes_dict,
     }
     return render(request, "polls/poll_structure.html", context)

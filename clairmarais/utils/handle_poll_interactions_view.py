@@ -11,10 +11,10 @@ def handle_poll_interactions(request, event_id, poll_id, template_prefix):
     poll = get_object_or_404(Poll, id=poll_id, event_id=event_id)
     user = request.user
     vote_options = VoteOption.objects.filter(poll=poll)
-    
     alert = None
-    user_votes_dict = {}
-    
+    # Récupérer les votes des utilisateurs
+    user_votes_dict = get_user_votes_dict(vote_options)
+
     # Gérer les interactions de l'utilisateur avec le sondage
     # (Vote, ajout d'une option, suppression d'une option)
     if request.method == 'POST':
@@ -22,18 +22,14 @@ def handle_poll_interactions(request, event_id, poll_id, template_prefix):
         if should_redirect:
             return redirect(reverse('poll_details', args=[event_id, poll_id]))
 
-    # Récupérer les votes des utilisateurs
-    user_votes_dict = get_user_votes_dict(vote_options)
  
     # Récupérer les utilisateurs ayant voté "oui" ou "non" pour chaque option de vote
     option_users_dict = get_option_users_dict(vote_options)
-       
     # Obtenir les choix de vote en fonction du type de formulaire (emoji, oui/non)
     vote_choices = get_vote_choices(poll)
 
    # Définir le form (template) à utiliser
     template_name = f'form_types/{poll.form_type}_{template_prefix}.html'
-    print(("------------------poll id : ", poll_id))
     context = {
         'poll': poll,
         'vote_options': vote_options,

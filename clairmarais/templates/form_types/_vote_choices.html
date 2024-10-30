@@ -8,9 +8,11 @@
             name="proposal_{{ option.id }}" 
             value="{{ choice }}" 
             id="{{ choice }}_{{ option.id }}"
-            {% if user_votes_dict and user_votes_dict|get_item:option.id and user_votes_dict|get_item:option.id|get_item:request.user.username == choice %}
-                checked
-            {% endif %}>
+            {% for vote in user_votes_dict|get_item:option.id %}
+                {% if vote.user == request.user.username and vote.response == choice %}
+                    checked
+                {% endif %}>
+            {% endfor %}
         <label for="{{ choice }}_{{ option.id }}">{{ choice }}</label>
     {% endfor %}
 </div>
