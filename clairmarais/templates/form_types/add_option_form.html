@@ -1,5 +1,4 @@
 {% load custom_filters %}
-
 <form method="post" action="{% url 'poll_votes' event_id poll.id %}">
     {% csrf_token %}
     <input type="hidden" name="poll_id" value="{{ poll.id }}">

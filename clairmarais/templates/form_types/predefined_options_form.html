@@ -1,7 +1,7 @@
 {% load custom_filters %}
 
 <!-- Liste prédéfinie (TODO par ex.) -->
-<form method="post" action="{% url 'poll_votes' poll.id %}">
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
     {% csrf_token %}
     <ul>
         {% for option in vote_options %}
@@ -18,7 +18,7 @@
 
 <!-- Récapitulatif option/user -->
 <h3>Le petit récap</h3>
-<form method="post" action="{% url 'poll_votes' poll.id %}">
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
     {% csrf_token %}
     <ul>
         {% for option in vote_options %}

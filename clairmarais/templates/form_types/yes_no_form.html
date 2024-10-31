@@ -1,7 +1,7 @@
 {% load custom_filters %}
 
 <!-- Vote des utilisateurs sur les options proposées (oui/non) -->
-<form method="post" action="{% url 'poll_votes' poll.id %}">
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
     {% csrf_token %}
     {% for option in vote_options %}
 

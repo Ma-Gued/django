@@ -9,3 +9,4 @@ def poll_votes(request, event_id, poll_id):
     if isinstance(context, dict):
         return render(request, context['template_name'], context)
     return context
+

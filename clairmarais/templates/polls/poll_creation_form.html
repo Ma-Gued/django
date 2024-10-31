@@ -6,6 +6,8 @@
     <h2>Ajouter des options de vote</h2>
     {{ vote_option_formset.management_form }}
     {% for form in vote_option_formset %}
+
+    {{ form.as_p }}
       <div class="form-row">
         <div class="col">
           {{ form.name.label_tag }} {{ form.name }}

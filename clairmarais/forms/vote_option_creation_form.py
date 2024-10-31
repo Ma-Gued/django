@@ -2,6 +2,7 @@ from django import forms
 from clairmarais.models import Poll, VoteOption
 from django.forms.models import inlineformset_factory
 
+
 class VoteOptionForm(forms.ModelForm):
     class Meta:
         model = VoteOption
@@ -10,6 +11,9 @@ class VoteOptionForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+VoteOptionFormSet = inlineformset_factory(Poll, VoteOption, form=VoteOptionForm, fields=("name",), extra=1, can_delete=True)
 
 # VoteOptionFormSet est un formset de VoteOptionForm, càd un ensemble de formulaires VoteOptionForm
 # Il permet de gérer plusieurs formulaires VoteOptionForm dans un seul formulaire
@@ -21,4 +25,3 @@ class VoteOptionForm(forms.ModelForm):
 # qui indique qu'on veut ajouter un formulaire vide
 # Les voteoption seront enregistrés dans la bdd quand on cliquera sur le bouton submit du formulaire, 
 # qui par rapport au bouton d'ajout de voteoption, n'a pas de paramètre supplémentaire
-VoteOptionFormSet = inlineformset_factory(Poll, VoteOption, form=VoteOptionForm, extra=1, can_delete=True)
