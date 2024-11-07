@@ -87,13 +87,6 @@ DATABASES = {
     }
 }
 
-#Configuration de la base de données pour Localhost
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 # Configuration de la base de données pour Heroku
 if 'DATABASE_URL' in os.environ:
