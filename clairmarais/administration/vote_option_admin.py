@@ -1,23 +1,15 @@
 from django.contrib import admin
-from clairmarais.models import VoteOption, UserVote
+from clairmarais.models import VoteOption, Poll
 
-class VoteOptionAdmin(admin.ModelAdmin):
-    list_display = ('get_name',)
+# Administration des VoteOptions
 
-    def get_name(self, obj):
-        if obj.meal:
-            return obj.meal.name
-        elif obj.drink:
-            print("DRNK")
-            return obj.drink.name
-        elif obj.intendance:
-            return obj.intendance.name
-        elif obj.game:
-            return obj.game.name
-        elif obj.logistic:
-            return obj.logistic.name
-        elif obj.payment:
-            return obj.payment.name
-        return 'Unknown'
-    get_name.short_description = 'Name'
+class VoteOptionInline(admin.TabularInline):
+    model = VoteOption
+    extra = 1
+    exclude = ('user', )
 
+    # Permet de filtrer les options de vote en fonction du sondage
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "poll":
+            kwargs["queryset"] = Poll.objects.filter(id=request.resolver_match.kwargs.get('object_id'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)

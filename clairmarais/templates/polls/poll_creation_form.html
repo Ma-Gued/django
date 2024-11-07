@@ -1,0 +1,30 @@
+
+  <h1>Créer un sondage</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <!-- Si l'utilisateur connecté crée un free_input, on n'affiche pas le formset: -->
+    {% if form.cleaned_data.type == 'free_input' %}
+      <button type="submit" name="save_poll" value="save_poll" class="btn btn-primary">Enregistrer</button>
+   
+    <!-- Sinon, on affiche le formset pour les options de vote: -->
+    {% else %}
+      <h2>Ajouter des options de vote</h2>
+      {{ vote_option_formset.management_form }}
+      {% for form in vote_option_formset %}
+
+      {{ form.as_p }}
+        <div class="form-row">
+          <div class="col">
+            {{ form.name.label_tag }} {{ form.name }}
+          </div>
+          <div class="col">
+            {{ form.DELETE.label_tag }} {{ form.DELETE }}
+          </div>
+        </div>
+      {% endfor %}
+      <button type="submit" name="add_vote_option_formset" value="1">Ajouter une option de vote</button>
+      <button type="submit" name="save_poll" value="save_poll" class="btn btn-primary">Enregistrer</button>
+    {% endif %}
+

@@ -1,0 +1,11 @@
+<h1>Mes évènements</h1>   
+{% for event in events %}
+    <li>
+        <a href="{% url 'event_details' event.id %}">{{ event.name }}</a>
+    </li>
+    <br>
+    
+{% endfor %}
+<p><a href="{% url 'event_create' %}" class="btn btn-primary">Créer un événement</a></p>
+
+ 

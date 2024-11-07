@@ -1,0 +1,14 @@
+<!-- Bouton de Retour -->
+<a href="{% url 'home' %}" class="btn">Retour</a>
+<br>
+
+<!-- Titre du sondage--> 
+<h1>{{ poll.question }}</h1>
+
+<!-- Afficher le formulaire -->
+{% include "form_types/"|add:form_type|add:"_form.html" %}
+
+<!-- Afficher une alerte -->
+{% if alert %}
+    <div class="alert alert-danger">{{ alert }}</div>
+{% endif %}

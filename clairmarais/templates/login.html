@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <h1>🤗 Qui es-tu ?</h1>
-    {% for user in users %}
-        <li class="polls-list">
-            <h2>
-            <a href="{% url 'user_login' user.id %}">{{ user.username }}</a>
-            </h2>
-        </li>
-    {% endfor %}
-{% endblock%}
+<h1>🤗 Qui es-tu ?</h1>
+{% for user in users %}
+    
+    <h2><li>
+        <a href="{% url 'user_login' user.id %}">{{ user.username }}</a>
+    </li></h2>
+{% endfor %}

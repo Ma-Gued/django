@@ -3,39 +3,37 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 
-from clairmarais.views import home_view
-from clairmarais.views.poll_votes_view import poll_votes
-from clairmarais.views.poll_details_view import poll_details
-from clairmarais.views.login_view import login
-from clairmarais.views.add_game_view import add_game
-from clairmarais.views.delete_game_view import delete_game
-from clairmarais.views.logistic_view import logistic
-from clairmarais.views.add_meal_view import add_meal
-from clairmarais.views.delete_meal_view import delete_meal
-from clairmarais.views.custom_login_view import CustomLoginView
-from clairmarais.views.custom_logout_view import CustomLogoutView
-from clairmarais.views.login_view import user_login, user_list
-from clairmarais.views.add_drink_view import add_drink
-from clairmarais.views.delete_drink_view import delete_drink
+# Importations des vues de l'application clairmarais
+from clairmarais.views.event import home_view
+from clairmarais.views.poll import poll_votes_view, poll_details_view, poll_create_view
+from clairmarais.views.login_logout import login_view, custom_login_view, custom_logout_view
+from clairmarais.views.event import event_create_view, event_list_view, event_details_view
 
 urlpatterns = [
+    # Administration
     path('admin/', admin.site.urls),
-    path('', CustomLoginView.as_view(), name='login'),
-    path('login/<int:user_id>/', user_login, name='user_login'),
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
-    path('user_list/', user_list, name='user_list'),  # Liste des utilisateurs
+
+    # Authentification
+    path('', custom_login_view.CustomLoginView.as_view(), name='login'),
+    path('login/<int:user_id>/', login_view.user_login, name='user_login'),
+    path('logout/', custom_logout_view.CustomLogoutView.as_view(), name='logout'),
+    path('user_list/', login_view.user_list, name='user_list'),
+
+    # Page d'accueil
     path('home/', home_view.home, name='home'),
-    path('polls/<int:poll_id>/votes/', poll_votes, name='poll_votes'),
-    path('polls/<int:poll_id>/', poll_details, name='poll_details'),
-    path('add_game/', add_game, name='add_game'), 
-    path('delete_game/<int:game_id>/', delete_game, name='delete_game'),
-    path('add_meal/', add_meal, name='add_meal'),
-    path('delete_meal/<int:meal_id>/', delete_meal, name='delete_meal'),
-    path('add_drink/', add_drink, name='add_drink'),
-    path('delete_drink/<int:drink_id>/', delete_drink, name='delete_drink'),
 
-    path('poll/<int:poll_id>/logistic/', logistic, name='logistic'),
-            
+    # Gestion des événements
+    path('events/', event_list_view.EventListView.as_view(), name='event_list'),
+    path('event/create/', event_create_view.EventCreateView.as_view(), name='event_create'),
+    path('event/<int:event_id>/', event_details_view.event_details, name='event_details'),
 
-    ]
+    # Création de sondages
+    path('event/<int:event_id>/polls/create/', poll_create_view.PollCreateView.as_view(), name='poll_create'),
 
+    # Page du sondage 
+    path('event/<int:event_id>/poll/<int:poll_id>/', poll_details_view.poll_details, name='poll_details'),
+    
+    #TODO : à revoir 
+    path('event/<int:event_id>/polls/<int:poll_id>/votes/', poll_votes_view.poll_votes, name='poll_votes'),
+
+]

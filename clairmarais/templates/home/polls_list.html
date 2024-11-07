@@ -1,10 +1,12 @@
-{% comment %} Ici, la liste des Polls auxquels les users doivent répondre {% endcomment %}
- {% comment %} Chaque poll.question est un lien vers le poll correspondant {% endcomment %}
 <h2>❓ Mes petits sondages </h2>   
  {% for poll in polls %}
-    <li class="polls-list">
-        <a href="{% url 'poll_details' poll.id %}">{{ poll.question }}</a>
-    </li>
+    <ul>
+        {% for poll in polls %}
+            <li class="polls-list">
+                <a href="{% url 'poll_details' poll.id %}">{{ poll.question }}</a>
+            </li>
+        {% endfor %}
+    </ul>  
     <br>
 {% endfor %}
  

@@ -1,0 +1,34 @@
+{% load custom_filters %}
+
+<!-- Liste prédéfinie (TODO par ex.) -->
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
+    {% csrf_token %}
+    <ul>
+        {% for option in vote_options %}
+            {% has_voted user_votes_dict|get_item:option.id request.user.username 'oui' as voted %}
+            {% if not voted %}
+                <li>
+                    <span>{{ option.name }}</span>
+                    <button type="submit" name="proposal_{{ option.id }}" value="oui">Je m'en charge</button>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</form>
+
+<!-- Récapitulatif option/user -->
+<h3>Le petit récap</h3>
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
+    {% csrf_token %}
+    <ul>
+        {% for option in vote_options %}
+            {% has_voted user_votes_dict|get_item:option.id request.user.username 'oui' as voted %}
+            {% if voted %}
+                <li>
+                    <span>{{ option.name }}</span>
+                    <button type="submit" name="proposal_{{ option.id }}" value="non">Annuler</button>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</form>
