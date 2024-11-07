@@ -17,7 +17,6 @@ class PollCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['poll_id'] = self.kwargs['poll_id']
         context['event_id'] = self.kwargs['event_id']
         context['form'] = PollCreationForm()
         context['vote_option_formset'] = VoteOptionFormSet(queryset=VoteOption.objects.none())
@@ -30,8 +29,10 @@ class PollCreateView(LoginRequiredMixin, CreateView):
         VoteOptionFormSet = inlineformset_factory(Poll, VoteOption, form=VoteOptionForm, extra=1, can_delete=True)
         vote_option_formset = VoteOptionFormSet(request.POST)
         
+        #TODO: Si le formulaire est "free__input", 
+        #TODO: L'utilisateur connecté ne renseigne pas d'option de vote
+        
         if 'add_vote_option_formset' in self.request.POST:
-            print("KIKOU")
             # Nombre de formulaires d'options de vote supplémentaires à afficher
             extra_forms = vote_option_formset.total_form_count() + 1
             # Créer un nouveau formulaire avec une option de vote supplémentaire: 
