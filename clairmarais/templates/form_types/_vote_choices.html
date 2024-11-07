@@ -1,0 +1,18 @@
+{% load custom_filters %}
+
+<div>   
+    <span>{{ option.name }}</span>
+    {% for choice in vote_choices %}
+        <input 
+            type="radio" 
+            name="proposal_{{ option.id }}" 
+            value="{{ choice }}" 
+            id="{{ choice }}_{{ option.id }}"
+            {% for vote in user_votes_dict|get_item:option.id %}
+                {% if vote.user == request.user.username and vote.response == choice %}
+                    checked
+                {% endif %}>
+            {% endfor %}
+        <label for="{{ choice }}_{{ option.id }}">{{ choice }}</label>
+    {% endfor %}
+</div>

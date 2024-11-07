@@ -1,0 +1,27 @@
+{% load custom_filters %}
+
+<!-- Vote des utilisateurs sur les options proposées (oui/non) -->
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
+    {% csrf_token %}
+    {% for option in vote_options %}
+
+        {% include "form_types/_vote_choices.html" %} <!-- Disponibilité des choix dans get_vote_choices(view)-->
+
+        <div>
+            {% with option_users_dict|get_item:option.id as users %}
+                <div>
+                    {% if users.oui %}
+                        👍😊 {{ users.oui|join:", " }}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if users.non %}
+                        👎😭 {{ users.non|join:", " }}
+                    {% endif %}
+                </div>
+            {% endwith %}
+        </div>
+    {% endfor %}
+    <br>
+    <button type="submit">Voter</button>
+</form>

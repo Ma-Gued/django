@@ -1,0 +1,20 @@
+{% load custom_filters %}
+
+<!-- Ajout d'une option par l'utilisateur -->
+{% include "form_types/add_option_form.html" %}
+
+<!-- Supression d'une option par l'utilisateur qui l'avait créée -->
+<ul>
+    {% for option in vote_options %}
+            <li>
+                <span>{{ option.name }}</span> - {{ option.user.username }}
+                {% if option.user.username == user.username %}
+                    <form method="post" action="{% url 'poll_votes' event_id poll.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_option" value="{{ option.id }}">
+                        <button type="submit">Annuler</button>
+                    </form>
+                {% endif %}
+            </li>
+    {% endfor %}
+</ul>

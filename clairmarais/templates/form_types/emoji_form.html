@@ -1,0 +1,22 @@
+{% load custom_filters %}
+
+<!-- Vote des utilisateurs sur les options proposées (🤮🤐😋) -->
+<form method="post" action="{% url 'poll_votes' event_id poll.id %}">
+    {% csrf_token %}
+    {% for option in vote_options %}
+        {% include "form_types/_vote_choices.html" %}  <!-- nb/ Disponibilité des choix dans get_vote_choices(view)-->
+        <!-- Si l'utilisateur a ajouté cette option, il peut la retirer -->
+        {% if option.user.username == user.username %}
+            <span class="supp">Ajouté par moi 🤚</span>
+            <button type="submit" name="delete_option" value="{{ option.id }}">Supprimer</button>
+        {% endif %}
+    {% endfor %}
+    <br>
+    <div>
+        <button type="submit" name="submit_votes">Voter</button>
+    </div>
+</form>
+
+<!-- Ajout d'option par les utilisateurs -->
+<h3>J'ai une autre idée</h3>
+{% include "form_types/add_option_form.html" %}
