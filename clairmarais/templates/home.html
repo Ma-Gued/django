@@ -5,13 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clairmarais Fever</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}👌 On organise, On participe{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <!--TODO extend block (-load static) -->
-    <!--TODO Rectifier les champs etc. pour que tout à l'affichage soit en français -->
-
+{% block content %}
     {% include 'event/event_list.html' %}
 
     <form method="post" action="{% url 'logout' %}">
@@ -19,3 +17,6 @@
         <button type="submit" class="logout-btn">Déconnexion</button>
     </form>
 {% endblock %}
+</body>
+</html>
+
